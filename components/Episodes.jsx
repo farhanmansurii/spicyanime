@@ -15,17 +15,15 @@ const fetcher = async (url) => {
 export default function Episodes({ animeId }) {
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(13);
+  const [currentEpisode, setCurrentEpisode] = useState(null);
 
   const getKey = (pageIndex, previousPageData) => {
-    // If there is no previous data, then fetch the first page
     if (pageIndex === 0) {
       return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
     }
-    // If the previous page did not return any data, then there are no more pages to fetch
     if (!previousPageData.length) {
       return null;
     }
-    // Otherwise, fetch the next page
     return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
   };
 
@@ -33,10 +31,12 @@ export default function Episodes({ animeId }) {
 
   if (error) return <div>No Episodes</div>;
   if (!data) return <div>Loading...</div>;
-
   // Concatenate all pages into a single array
   const episodes = data.flatMap((page) => page);
-
+  if (!currentEpisode && data.length > 0 && data[0].length > 0) {
+    setCurrentEpisode(data[0][0]);
+    console.log(data[0][0])
+  }
   const visibleEpisodes = episodes.slice(start - 1, end);
 
   const options = [];
@@ -47,6 +47,13 @@ export default function Episodes({ animeId }) {
   return (
     <div className=' w-11/12 mx-auto'>
       <div className="my-4">
+        {currentEpisode &&
+          <>
+            <img src={currentEpisode.image} />
+            <div>{currentEpisode.title}</div>
+          </>
+        }
+
         <label htmlFor="episodeRange" className="mr-2 font-semibold">
           Episode range:
         </label>
@@ -61,7 +68,7 @@ export default function Episodes({ animeId }) {
           }}
         >
           {options.map((option) => (
-            <option  key={option} value={option}>
+            <option key={option} value={option}>
               {option}
             </option>
           ))}
@@ -69,26 +76,26 @@ export default function Episodes({ animeId }) {
       </div>
       <div className="flex flex-row overflow-x-auto scrollbar-hide">
         {visibleEpisodes.map((episode) => (
-          <div key={episode.id} className="flex-shrink-0 flex-col items-center mx-1 sm:w-1/2 md:w-1/4 lg:w-1/5 max-w-20">
-          <div className="relative group">
-            <Image
-              src={episode.image}
-              alt={`Episode ${episode.number}`}
-              width={500}
-              height={300}
-              className="w-40 lg:w-full duration-150 cursor-pointer"
-            />
-        
-            <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-100 group-hover:from-red-500 ">
-              <span className="block">{`Ep ${episode.number}`}</span>
-              <span className="hidden lg:inline-block">{episode.title}</span>
+          <div key={episode.id} onClick={() => { setCurrentEpisode(episode), console.log(currentEpisode) }} className="flex-shrink-0 flex-col items-center mx-1 sm:w-1/2 md:w-1/4 lg:w-1/5 max-w-20">
+            <div className="relative group">
+              <Image
+                src={episode.image}
+                alt={`Episode ${episode.number}`}
+                width={500}
+                height={300}
+                className="w-40 lg:w-full duration-150 cursor-pointer"
+              />
+
+              <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-100 group-hover:from-red-500 ">
+                <span className="block">{`Ep ${episode.number}`}</span>
+                <span className="hidden lg:inline-block">{episode.title}</span>
+              </div>
             </div>
           </div>
-        </div>
-        
+
         ))}
-        
-        
+
+
       </div>
     </div>)
 }
