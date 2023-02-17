@@ -47,7 +47,7 @@ const Player = ({ sources, subtitles }) => {
                 kind: 'subtitles',
                 src: subtitle.url,
                 srcLang: subtitle.lang,
-                default: subtitle.default
+                default: subtitle.lang
               }))
             }
           }}
