@@ -1,6 +1,8 @@
 import Animedetails from "@/components/Animedetails";
 import Row from "@/components/Row";
-
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import { fetcher } from ".";
 export async function getServerSideProps(context) {
   const animeId = context.query.id;
   const detailsResponse = await fetch(`https://api.consumet.org/meta/anilist/info/${animeId}?provider=crunchyroll`);
@@ -23,7 +25,7 @@ console.log(deets.deets)
       <div className=" flex-column  ">
         <Animedetails deets={deets.deets} />
       </div>
-      <Row typeOfAnime={deets.deets.recommendations}/>
+      <Row typeOfAnime={deets.deets.relations}/>
     </div>
   );
 }
