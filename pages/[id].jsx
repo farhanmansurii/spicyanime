@@ -1,4 +1,5 @@
 import Animedetails from "@/components/Animedetails";
+import Episodes from "@/components/Episodes";
 import Row from "@/components/Row";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -24,6 +25,9 @@ console.log(deets.deets)
     <div>
       <div className=" flex-column  ">
         <Animedetails deets={deets.deets} />
+      </div>
+      <div>
+        <Episodes animeId ={deets.animeId}/>
       </div>
       <Row typeOfAnime={deets.deets.relations}/>
     </div>
