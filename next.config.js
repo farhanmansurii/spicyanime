@@ -2,6 +2,6 @@
 
 module.exports = {
   images: {
-    domains: ["s4.anilist.co","artworks.thetvdb.com"],
+    domains: ["s4.anilist.co", "artworks.thetvdb.com", "www.crunchyroll.com"],
   },
 };

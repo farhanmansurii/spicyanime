@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
-const Player = ({ sources, subtitles }) => {
+const Player = ({ sources }) => {
   const [selectedUrl, setSelectedUrl] = useState(null);
   const [progress, setProgress] = useState(0);
   const [skipIntro, setSkipIntro] = useState(false);
@@ -15,7 +15,7 @@ const Player = ({ sources, subtitles }) => {
   };
 
   useEffect(() => {
-    const defaultVideo = sources.find((video) => video.quality === "auto");
+    const defaultVideo = sources.find((video) => video.quality === "default");
     if (defaultVideo) {
       setSelectedUrl(defaultVideo.url);
     }
@@ -45,19 +45,6 @@ const Player = ({ sources, subtitles }) => {
           width={"100%"}
           height={"100%"}
           onProgress={handleProgress}
-          config={{
-            file: {
-              tracks: subtitles.map((subtitle) => ({
-                kind: "subtitles",
-                src: subtitle.url,
-                srcLang: subtitle.lang,
-                default: subtitle.lang === "English", // Set the 'default' property to 'true' only for the English subtitle
-              })),
-            },
-            attributes: {
-              crossOrigin: "true",
-            },
-          }}
           playedSeconds={skipIntro ? 30 : 0}
         />
       )}
