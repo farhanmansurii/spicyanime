@@ -1,7 +1,6 @@
 import Animedetails from "@/components/Animedetails";
 import Episodes from "@/components/Episodes";
 import Row from "@/components/Row";
-import VideoPlayer from "@/components/VideoPlayer";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { fetcher } from ".";

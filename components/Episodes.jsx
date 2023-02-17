@@ -1,8 +1,8 @@
 import useSWRInfinite from 'swr/infinite';
 import axios from 'axios';
 import { useState } from 'react';
-import Image from 'next/image';
-
+import EpisodeCard from './EpisodeCard';
+import Spinner from 'react-spinner-material';
 const fetcher = async (url) => {
   try {
     const response = await axios.get(url);
@@ -30,7 +30,10 @@ export default function Episodes({ animeId }) {
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher);
 
   if (error) return <div>No Episodes</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <div className=' h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
+
+  <Spinner radius={30} color='#DA0037' stroke={5} visible={true} />
+</div>;
   // Concatenate all pages into a single array
   const episodes = data.flatMap((page) => page);
   if (!currentEpisode && data.length > 0 && data[0].length > 0) {
@@ -47,12 +50,7 @@ export default function Episodes({ animeId }) {
   return (
     <div className=' w-11/12 mx-auto'>
       <div className="my-4">
-        {currentEpisode &&
-          <>
-            <img src={currentEpisode.image} />
-            <div>{currentEpisode.title}</div>
-          </>
-        }
+        
 
         <label htmlFor="episodeRange" className="mr-2 font-semibold">
           Episode range:
@@ -77,20 +75,7 @@ export default function Episodes({ animeId }) {
       <div className="flex flex-row overflow-x-auto scrollbar-hide">
         {visibleEpisodes.map((episode) => (
           <div key={episode.id} onClick={() => { setCurrentEpisode(episode), console.log(currentEpisode) }} className="flex-shrink-0 flex-col items-center mx-1 sm:w-1/2 md:w-1/4 lg:w-1/5 max-w-20">
-            <div className="relative group">
-              <Image
-                src={episode.image}
-                alt={`Episode ${episode.number}`}
-                width={500}
-                height={300}
-                className="w-40 lg:w-full duration-150 cursor-pointer"
-              />
-
-              <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-100 group-hover:from-red-500 ">
-                <span className="block">{`Ep ${episode.number}`}</span>
-                <span className="hidden lg:inline-block">{episode.title}</span>
-              </div>
-            </div>
+            <EpisodeCard episode={episode} />
           </div>
 
         ))}
