@@ -1,6 +1,7 @@
-import useSWR from 'swr';
+import useSWRInfinite from 'swr/infinite';
 import axios from 'axios';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const fetcher = async (url) => {
   try {
@@ -12,54 +13,88 @@ const fetcher = async (url) => {
 }
 
 export default function Episodes({ animeId }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [episodesPerPage, setEpisodesPerPage] = useState(13);
+  const [start, setStart] = useState(1);
+  const [end, setEnd] = useState(13);
 
-  const { data: episodes, error } = useSWR(`https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`, fetcher);
+  const getKey = (pageIndex, previousPageData) => {
+    // If there is no previous data, then fetch the first page
+    if (pageIndex === 0) {
+      return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
+    }
+    // If the previous page did not return any data, then there are no more pages to fetch
+    if (!previousPageData.length) {
+      return null;
+    }
+    // Otherwise, fetch the next page
+    return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
+  };
+
+  const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher);
 
   if (error) return <div>No Episodes</div>;
-  if (!episodes) return <div>Loading...</div>;
+  if (!data) return <div>Loading...</div>;
 
-  // Calculate the index of the first and last episodes to display on the current page
-  const indexOfLastEpisode = currentPage * episodesPerPage;
-  const indexOfFirstEpisode = indexOfLastEpisode - episodesPerPage;
+  // Concatenate all pages into a single array
+  const episodes = data.flatMap((page) => page);
 
-  // Get the episodes to display on the current page
-  const currentEpisodes = episodes.slice(indexOfFirstEpisode, indexOfLastEpisode);
+  const visibleEpisodes = episodes.slice(start - 1, end);
 
-  // Render the episodes
-  return (<>
-    <div className="flex flex-row overflow-x-auto scrollbar-hide">
-      {currentEpisodes.map((episode) => (
-        <div key={episode.id} className="flex-shrink-0 flex-col items-center mx-4 w-48">
-          <img src={episode.image} className="w-48" />
-          <div className="font-semibold text-primary text-sm lg:text-md whitespace-pre-wrap line-clamp-2">
-            Ep {episode.number} : {episode.title}
+  const options = [];
+  for (let i = 0; i < episodes.length; i += 13) {
+    options.push(`${i + 1} - ${Math.min(i + 13, episodes.length)}`);
+  }
+
+  return (
+    <div>
+      <div className="my-4">
+        <label htmlFor="episodeRange" className="mr-2 font-semibold">
+          Episode range:
+        </label>
+        <select
+          name="episodeRange"
+          id="episodeRange"
+          value={`${start} - ${end}`}
+          onChange={(e) => {
+            const [newStart, newEnd] = e.target.value.split(' - ');
+            setStart(parseInt(newStart));
+            setEnd(parseInt(newEnd));
+          }}
+        >
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex flex-row overflow-x-auto scrollbar-hide">
+        {visibleEpisodes.map((episode) => (
+          <div key={episode.id} className="flex-shrink-0 flex-col items-center mx-2 max-w-20">
+          <div className="relative group">
+            <Image
+              src={episode.image}
+              alt={`Episode ${episode.number}`}
+              width={300}
+              height={180}
+              className="w-full cursor-pointer"
+            />
+           
+  <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-0 group-hover:opacity-100">
+    Ep {episode.number} : {episode.title}
+  </div>
           </div>
         </div>
-      ))}
-      {/* Navigation buttons */}
-      
-    </div>
-
-    <div className="flex-shrink-0 flex-col items-center mx-4">
-        <div
-          className={`flex items-center justify-center text-primary border-2  border-primary rounded-md ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-          onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous Page
-        </div>
+        ))}
+        {/* Load more button */}
+        {size < 10 && (
+          <div
+            className="flex-shrink-0 flex-col items-center mx-4 cursor-pointer"
+            onClick={() => setSize(size + 1)}
+          >
+            <div className="w-48 h-48 flex items-center justify-center text-primary border-2 border-dashed border-primary rounded-md">
+              Load More
+            </div>
+          </div>
+        )}
       </div>
-      <div className="flex-shrink-0 flex-col items-center mx-4">
-        <div
-          className={`flex items-center justify-center text-primary border-2  border-primary rounded-md ${indexOfLastEpisode >= episodes.length ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={indexOfLastEpisode >= episodes.length}
-        >
-          Next Page
-        </div>
-      </div>
-      </>
-  );
-}
+    </div>)}
