@@ -1,10 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 body {
-  color: wheat;
-  background-color: black;
+  color: #f5f3f4;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #0b090a;
+}
+.red-skin .react-player {
+  background-color: red;
+  color: white;
+}
+
+.red-skin .react-player .video-react-big-play-button {
+  border: 3px solid white;
+}
+
+.red-skin .react-player .video-react-control-bar {
+  background-color: white;
+}
+
+.red-skin .react-player .video-react-progress-holder {
+  background-color: white;
+}
+
+.red-skin .react-player .video-react-progress-bar {
+  background-color: red;
+}
+
+.red-skin .react-player .video-react-load-progress {
+  background-color: #ccc;
+}
+
+.red-skin .react-player .video-react-volume-menu-button,
+.red-skin .react-player .video-react-time-control {
+  color: red;
+}
+
+.red-skin .react-player .video-react-volume-level:before,
+.red-skin .react-player .video-react-volume-level:after,
+.red-skin .react-player .video-react-play-progress:before,
+.red-skin .react-player .video-react-control:before {
+  background-color: red;
+}
+
+.red-skin .react-player .video-react-control:before {
+  border-color: red;
 }

@@ -1,61 +1,46 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactPlayer from "react-player";
 
 const Player = ({ sources }) => {
   const [selectedUrl, setSelectedUrl] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [skipIntro, setSkipIntro] = useState(false);
-
-  const handleProgress = (progress) => {
-    setProgress(Math.round(progress.playedSeconds));
-  };
-
+  const [playedPercent, setPlayedPercent] = useState(0);
   const handleQualityChange = (url) => {
     setSelectedUrl(url);
   };
 
-  useEffect(() => {
-    const defaultVideo = sources.find((video) => video.quality === "default");
-    if (defaultVideo) {
-      setSelectedUrl(defaultVideo.url);
-    }
-  }, []);
-
   return (
-    <div>
-      <div className="gap-1 flex py-1  flex-wrap place-content-center">
+    <div className="lg:h-[400px]">
+      <div className="gap-1 flex py-1  flex-wrap place-content-center items-center">
         {sources.map((video) => (
-          <button
-            onClick={() => handleQualityChange(video.url)}
+          <span
             key={video.url}
-            className={`${
-              selectedUrl === video.url
-                ? "bg-secondary-focus text-primary border-2 border-primary"
-                : "bg-secondary text-primary"
-            }  rounded-full  px-3 py-2  text-xs`}
+            onClick={() => handleQualityChange(video.url)}
+            class={` ${
+              selectedUrl === video.url ? "bg-red-500/50   " : "bg-red-500  "
+            }
+
+              "inline-block  text-white py-1 px-3 rounded-full text-xs opacity-90 transition-opacity hover:opacity-100"
+            `}
           >
-            {video.quality}
-          </button>
+            {video.quality} {selectedUrl === video.url && <span>x</span>}
+          </span>
         ))}
       </div>
+
       {selectedUrl && (
         <ReactPlayer
           url={selectedUrl}
           controls
           width={"100%"}
-          height={"100%"}
-          onProgress={handleProgress}
-          playedSeconds={skipIntro ? 30 : 0}
+          className="react-player"
+          wrapperClassName="red-skin"
+          onProgress={(progress) => {
+            const played = progress.played;
+            const percent = played * 100;
+            setPlayedPercent(percent);
+          }}
         />
       )}
-      <div>
-        <label htmlFor="skipIntro">Skip intro</label>
-        <input
-          type="checkbox"
-          id="skipIntro"
-          onChange={(e) => setSkipIntro(e.target.checked)}
-        />
-      </div>
     </div>
   );
 };

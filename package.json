@@ -20,10 +20,12 @@
     "lru-cache": "^7.16.0",
     "next": "13.1.6",
     "plyr": "^3.7.3",
+    "plyr-react": "^5.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-player": "^2.11.2",
     "react-spinner-material": "^1.4.0",
+    "shaka-player": "^4.3.4",
     "swr": "^2.0.3"
   },
   "devDependencies": {

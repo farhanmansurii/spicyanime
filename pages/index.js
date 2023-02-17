@@ -1,9 +1,9 @@
 import Row from "@/components/Row";
 import axios from "axios";
 import useSWR, { SWRConfig } from "swr";
+import SearchPage from "./search";
 
 export const fetcher = (url) => axios.get(url).then((res) => res.data);
-
 
 function Anime() {
   const { data: popular } = useSWR(
@@ -18,8 +18,9 @@ function Anime() {
   return (
     <div>
       <div className="flex flex-col   pb-24 lg:pb-10">
-        <Row typeOfAnime={action?.results} />
-        <Row typeOfAnime={popular?.results} />
+        <SearchPage />
+        <Row typeOfAnime={action?.results} text="Trending Anime" />
+        <Row typeOfAnime={popular?.results} text="Popular Anime" />
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ const fetcher = async (url) => {
 
 export default function Episodes({ animeId }) {
   const [start, setStart] = useState(1);
-  const [end, setEnd] = useState(13);
+  const [end, setEnd] = useState(25);
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
 
@@ -54,24 +54,37 @@ export default function Episodes({ animeId }) {
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        console.log(data)
         <Spinner radius={30} color="#DA0037" stroke={5} visible={true} />
       </div>
     );
   const episodes = data.flatMap((page) => page);
   if (!currentEpisode && data.length > 0 && data[0].length > 0) {
     setCurrentEpisode(data[0][0]);
-    console.log(data[0][0]);
+    setSelectedEpisode(data[0][0].id);
   }
   const visibleEpisodes = episodes.slice(start - 1, end);
 
   const options = [];
-  for (let i = 0; i < episodes.length; i += 26) {
-    options.push(`${i + 1} - ${Math.min(i + 26, episodes.length)}`);
+  for (let i = 0; i < episodes.length; i += 25) {
+    options.push(`${i + 1} - ${Math.min(i + 25, episodes.length)}`);
   }
 
   return (
-    <div className=" w-11/12 mx-auto">
+    <div className=" w-11/12 mx-auto  my-4  items-center">
+      {selectedEpisode && (
+        <div className="flex items-center">
+          Episode {currentEpisode.number} : {currentEpisode.title}
+        </div>
+      )}
+      {episode ? (
+        <div className="flex items-center lg:h-[400px] flex-col">
+          <Player sources={episode.sources} />
+        </div>
+      ) : (
+        <div className=" lg:h-[400px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
+          <Spinner radius={30} color="#DA0037" stroke={5} visible={true} />
+        </div>
+      )}
       {episodes.length > 1 && (
         <div className="my-4">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
@@ -96,7 +109,6 @@ export default function Episodes({ animeId }) {
           </select>
         </div>
       )}
-      {episode && <Player sources={episode.sources} />}
 
       <div className="flex flex-row overflow-x-auto scrollbar-hide">
         {visibleEpisodes.map((episode) => (
