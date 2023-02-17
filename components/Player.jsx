@@ -2,27 +2,29 @@ import { useState } from "react";
 import ReactPlayer from "react-player";
 
 const Player = ({ sources }) => {
-  const [selectedUrl, setSelectedUrl] = useState(null);
+  const [selectedUrl, setSelectedUrl] = useState(
+    sources.find((video) => video.quality === "default")?.url
+  );
   const [playedPercent, setPlayedPercent] = useState(0);
   const handleQualityChange = (url) => {
     setSelectedUrl(url);
   };
 
   return (
-    <div className="lg:h-[400px]">
+    <div className="w-11/12">
       <div className="gap-1 flex py-1  flex-wrap place-content-center items-center">
         {sources.map((video) => (
           <span
             key={video.url}
             onClick={() => handleQualityChange(video.url)}
             class={` ${
-              selectedUrl === video.url ? "bg-red-500/50   " : "bg-red-500  "
+              selectedUrl === video.url ? "bg-white/10   " : "bg-white/30  "
             }
 
-              "inline-block  text-white py-1 px-3 rounded-full text-xs opacity-90 transition-opacity hover:opacity-100"
+              "inline-block  text-white py-1 px-3 text-xs opacity-90 transition-opacity hover:opacity-100"
             `}
           >
-            {video.quality} {selectedUrl === video.url && <span>x</span>}
+            {video.quality}
           </span>
         ))}
       </div>
@@ -32,8 +34,7 @@ const Player = ({ sources }) => {
           url={selectedUrl}
           controls
           width={"100%"}
-          className="react-player"
-          wrapperClassName="red-skin"
+          class="aspect-video"
           onProgress={(progress) => {
             const played = progress.played;
             const percent = played * 100;

@@ -26,8 +26,9 @@ export default function AnimeDetails(deets) {
       <div>
         <Episodes animeId={deets.animeId} />
       </div>
-      <div></div>
-      <Row typeOfAnime={deets.deets.relations} text="You might also like" />
+      <div className="my-10">
+        <Row typeOfAnime={deets.deets.relations} text="You might also like" />
+      </div>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "react-spinner-material";
-import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import EpisodeCard from "./EpisodeCard";
 import Player from "./Player";
@@ -16,6 +15,8 @@ const fetcher = async (url) => {
 };
 
 export default function Episodes({ animeId }) {
+  const [episode, setEpisode] = useState(null);
+  const [episodeError, setEpisodeError] = useState(null);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(25);
   const [currentEpisode, setCurrentEpisode] = useState(null);
@@ -25,18 +26,24 @@ export default function Episodes({ animeId }) {
     setSelectedEpisode(epid);
   };
 
-  const fetcherEp = async (url) => {
-    const res = await fetch(url);
-    return res.json();
-  };
+  useEffect(() => {
+    const fetchEpisode = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.consumet.org/meta/anilist/watch/${selectedEpisode}`
+        );
+        setEpisode(response.data);
+        setEpisodeError(null);
+      } catch (error) {
+        setEpisode(null);
+        setEpisodeError(error);
+      }
+    };
 
-  const { data: episode, error: episodeError } = useSWR(
-    selectedEpisode
-      ? `https://api.consumet.org/meta/anilist/watch/${selectedEpisode}`
-      : null,
-    fetcherEp
-  );
-  console.log(episode);
+    if (selectedEpisode) {
+      fetchEpisode();
+    }
+  }, [selectedEpisode]);
 
   const getKey = (pageIndex, previousPageData) => {
     if (pageIndex === 0) {
@@ -48,7 +55,9 @@ export default function Episodes({ animeId }) {
     return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
   };
 
-  const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher);
+  const { data, error } = useSWRInfinite(getKey, fetcher, {
+    revalidateOnFocus: false,
+  });
 
   if (error) return <div>No Episodes</div>;
   if (!data)
@@ -70,9 +79,9 @@ export default function Episodes({ animeId }) {
   }
 
   return (
-    <div className=" w-11/12 mx-auto  my-4  items-center">
+    <div className=" w-[99%] mx-auto text-center my-4  items-center">
       {selectedEpisode && (
-        <div className="flex items-center">
+        <div className="flex items-center ml-4   lg:text-2xl my-2 line-clamp-1">
           Episode {currentEpisode.number} : {currentEpisode.title}
         </div>
       )}
@@ -86,14 +95,14 @@ export default function Episodes({ animeId }) {
         </div>
       )}
       {episodes.length > 1 && (
-        <div className="my-4">
+        <div className="my-4 w-[98%] mx-auto text-left text-xl">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
-            Episode range:
+            Episodes
           </label>
           <select
             name="episodeRange"
             id="episodeRange"
-            className="bg-black outline-none border-2 border-red-400 rounded-md px-2 py-1 scrollbar-hide overflow-hidden"
+            className="bg-white/10 px-3 outline-none  backdrop-blur-sm py-1 scrollbar-hide overflow-hidden"
             value={`${start} - ${end}`}
             onChange={(e) => {
               const [newStart, newEnd] = e.target.value.split(" - ");
@@ -110,11 +119,12 @@ export default function Episodes({ animeId }) {
         </div>
       )}
 
-      <div className="flex flex-row overflow-x-auto scrollbar-hide">
+      <div className="flex flex-row overflow-x-auto w-[98%]  mx-auto scrollbar-hide">
         {visibleEpisodes.map((episode) => (
           <div
             key={episode.id}
             onClick={() => {
+              setEpisode("");
               setCurrentEpisode(episode),
                 console.log(episode.id),
                 handleEpisodeClick(episode.id);

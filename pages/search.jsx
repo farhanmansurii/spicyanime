@@ -1,6 +1,5 @@
 import useDebounce from "@/hooks/useDebounce";
 import { useEffect, useState } from "react";
-import Spinner from "react-spinner-material";
 import Row from "../components/Row";
 const SearchPage = () => {
   const [val, setval] = useState("");
@@ -26,8 +25,10 @@ const SearchPage = () => {
         <div className="flex place-self-center mt-4  w-11/12 mx-auto   ">
           <input
             type="text"
-            placeholder="Search for Any Anime TV or Movie"
-            className=" placeholder:text-[#f5f3f4] border-2 border-[#e5383b] bg-black p-4 rounded-full w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0"
+            placeholder="
+            
+            Search for Any Anime TV or Movie"
+            className=" placeholder:text-[#f5f3f4] bg-white/10 px-4 py-2 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0"
             input={val}
             onChange={(e) => setval(e.target.value)}
           />
@@ -39,7 +40,10 @@ const SearchPage = () => {
             <Row typeOfAnime={searchList} />
           ) : (
             <div className="w-fit h-[200px] my-auto ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-              <Spinner radius={30} color="#e5383b" stroke={5} visible={true} />
+              <img
+                className="w-24"
+                src="https://media.tenor.com/kVDFaxgnXOIAAAAC/sharingan.gif"
+              />{" "}
             </div>
           )}
         </div>
