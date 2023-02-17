@@ -2,7 +2,7 @@ const Animedetails = ({ deets }) => {
   return (
     <div
       style={{ backgroundImage: `url(${deets.image})` }}
-      className="bg-cover bg-center -mt-8 w-vw  bg-hidden lg:block lg:mx-auto"
+      className="bg-cover bg-center  w-vw  bg-hidden lg:block lg:mx-auto"
     >
       <div className="bg-gradient-to-t from-black  to-black/20 lg:to-black/20  lg:backdrop-blur-lg w-100">
         <div className="flex flex-col md:flex-row  items-center w-11/12  mx-auto gap-4 ">
