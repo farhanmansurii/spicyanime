@@ -76,7 +76,7 @@ export default function Episodes({ animeId }) {
               alt={`Episode ${episode.number}`}
               width={500}
               height={300}
-              className="w-32 lg:w-full duration-150 cursor-pointer"
+              className="w-48 lg:w-full duration-150 cursor-pointer"
             />
         
             <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-100 group-hover:from-red-500 ">
