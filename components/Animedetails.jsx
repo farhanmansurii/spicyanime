@@ -60,14 +60,7 @@ const Animedetails = ({ deets }) => {
                 ""
               )}
             </div>
-            <div className="flex ">
-              {/* {deets.startDate.day !== null && (<div className="px-2 py-1 flex  text-sm lg:text-lg  rounded-2xl text-black  border-secondary/30 text-shadow-xl   w-fit">
-                from  {deets.startDate.month}/{deets.startDate.year}
-              </div>)}
-              {deets.endDate.day !== null && (<div className="px-2 py-1 flex  text-sm lg:text-lg  rounded-2xl text-black border-secondary/30 text-shadow-xl   w-fit">
-                to  {deets.endDate.month}/{deets.endDate.year}
-              </div>)} */}
-            </div>
+            
           </div>
         </div>
       </div>
