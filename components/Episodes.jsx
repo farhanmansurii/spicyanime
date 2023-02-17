@@ -40,19 +40,19 @@ export default function Episodes({ animeId }) {
   const visibleEpisodes = episodes.slice(start - 1, end);
 
   const options = [];
-  for (let i = 0; i < episodes.length; i += 13) {
-    options.push(`${i + 1} - ${Math.min(i + 13, episodes.length)}`);
+  for (let i = 0; i < episodes.length; i += 26) {
+    options.push(`${i + 1} - ${Math.min(i + 26, episodes.length)}`);
   }
 
   return (
-    <div>
+    <div className=' w-11/12 mx-auto'>
       <div className="my-4">
         <label htmlFor="episodeRange" className="mr-2 font-semibold">
           Episode range:
         </label>
         <select
           name="episodeRange"
-          id="episodeRange"
+          id="episodeRange" className='bg-black outline-none border-2 border-red-400 rounded-md px-2 py-1 scrollbar-hide overflow-hidden'
           value={`${start} - ${end}`}
           onChange={(e) => {
             const [newStart, newEnd] = e.target.value.split(' - ');
@@ -61,7 +61,7 @@ export default function Episodes({ animeId }) {
           }}
         >
           {options.map((option) => (
-            <option key={option} value={option}>
+            <option  key={option} value={option}>
               {option}
             </option>
           ))}
@@ -76,7 +76,7 @@ export default function Episodes({ animeId }) {
               alt={`Episode ${episode.number}`}
               width={500}
               height={300}
-              className="w-48 lg:w-full duration-150 cursor-pointer"
+              className="w-40 lg:w-full duration-150 cursor-pointer"
             />
         
             <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-100 group-hover:from-red-500 ">
