@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Spinner from "react-spinner-material";
 import useSWRInfinite from "swr/infinite";
 import EpisodeCard from "./EpisodeCard";
 import Player from "./Player";
@@ -63,7 +62,10 @@ export default function Episodes({ animeId }) {
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        <Spinner radius={30} color="#DA0037" stroke={5} visible={true} />
+        <img
+          className="w-12"
+          src="https://media.tenor.com/kVDFaxgnXOIAAAAC/sharingan.gif"
+        />
       </div>
     );
   const episodes = data.flatMap((page) => page);
@@ -91,7 +93,10 @@ export default function Episodes({ animeId }) {
         </div>
       ) : (
         <div className=" lg:h-[400px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-          <Spinner radius={30} color="#DA0037" stroke={5} visible={true} />
+          <img
+            className="w-12"
+            src="https://media.tenor.com/kVDFaxgnXOIAAAAC/sharingan.gif"
+          />
         </div>
       )}
       {episodes.length > 1 && (
