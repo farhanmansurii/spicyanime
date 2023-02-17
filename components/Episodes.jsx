@@ -96,7 +96,7 @@ export default function Episodes({ animeId }) {
       }
       {
         episode &&
-        <Player sources={episode.sources} />
+        <Player sources={episode.sources} subtitles={episode.subtitles} />
       }
 
       <div className="flex flex-row overflow-x-auto scrollbar-hide">
