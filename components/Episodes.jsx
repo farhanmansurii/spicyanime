@@ -79,9 +79,9 @@ export default function Episodes({ animeId }) {
               className="w-32 lg:w-full duration-150 cursor-pointer"
             />
         
-            <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-0 group-hover:opacity-100">
+            <div className="absolute text-left bottom-0 left-0 w-full py-1 bg-gradient-to-t from-black duration-150 to-transparent bg-opacity-60 text-white p-4 opacity-100 group-hover:opacity-50">
               <span className="block">{`Ep ${episode.number}`}</span>
-              <span className="hidden sm:inline-block">{episode.title}</span>
+              <span className="hidden lg:inline-block">{episode.title}</span>
             </div>
           </div>
         </div>
