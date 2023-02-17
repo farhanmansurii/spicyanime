@@ -4,13 +4,14 @@ import useSWR, { SWRConfig } from "swr";
 
 export const fetcher = (url) => axios.get(url).then((res) => res.data);
 
+
 function Anime() {
   const { data: popular } = useSWR(
-    "https://api.amvstr.ml/api/v2/popular?limit=10",
+    "https://api.consumet.org/meta/anilist/popular",
     fetcher
   );
   const { data: action } = useSWR(
-    "https://api.amvstr.ml/api/v2/trending?limit=10",
+    "https://api.consumet.org/meta/anilist/trending",
     fetcher
   );
 
