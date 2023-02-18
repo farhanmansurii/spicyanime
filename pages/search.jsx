@@ -1,6 +1,7 @@
 import useDebounce from "@/hooks/useDebounce";
 import { useEffect, useState } from "react";
 import Row from "../components/Row";
+import Sharingan from "../styles/sharingan.gif";
 const SearchPage = () => {
   const [val, setval] = useState("");
   const [searchList, setSearchList] = useState([]);
@@ -28,7 +29,7 @@ const SearchPage = () => {
             placeholder="
             
             Search for Any Anime TV or Movie"
-            className=" placeholder:text-[#f5f3f4] bg-white/10 px-4 py-2 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0"
+            className=" placeholder:text-[#f5f3f4] bg-red-500/50 rounded-full px-4 py-2 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0"
             input={val}
             onChange={(e) => setval(e.target.value)}
           />
@@ -40,10 +41,7 @@ const SearchPage = () => {
             <Row typeOfAnime={searchList} />
           ) : (
             <div className="w-fit h-[200px] my-auto ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-              <img
-                className="w-24"
-                src="https://media.tenor.com/kVDFaxgnXOIAAAAC/sharingan.gif"
-              />{" "}
+              <img className="w-24" src={Sharingan} />
             </div>
           )}
         </div>

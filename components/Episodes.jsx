@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useSWRInfinite from "swr/infinite";
+import Sharingan from "../styles/sharingan.gif";
 import EpisodeCard from "./EpisodeCard";
 import Player from "./Player";
-
 const fetcher = async (url) => {
   try {
     const response = await axios.get(url);
@@ -62,10 +62,7 @@ export default function Episodes({ animeId }) {
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        <img
-          className="w-12"
-          src="https://media.tenor.com/kVDFaxgnXOIAAAAC/sharingan.gif"
-        />
+        <img className="w-12" src={Sharingan} />
       </div>
     );
   const episodes = data.flatMap((page) => page);
@@ -93,10 +90,7 @@ export default function Episodes({ animeId }) {
         </div>
       ) : (
         <div className=" lg:h-[400px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-          <img
-            className="w-12"
-            src="https://media.tenor.com/kVDFaxgnXOIAAAAC/sharingan.gif"
-          />
+          <img className="w-12" src={Sharingan} />
         </div>
       )}
       {episodes.length > 1 && (
@@ -107,7 +101,7 @@ export default function Episodes({ animeId }) {
           <select
             name="episodeRange"
             id="episodeRange"
-            className="bg-white/10 px-3 outline-none  backdrop-blur-sm py-1 scrollbar-hide overflow-hidden"
+            className="bg-rose-500/50 rounded-full px-3 outline-none  backdrop-blur-sm py-1 scrollbar-hide overflow-hidden"
             value={`${start} - ${end}`}
             onChange={(e) => {
               const [newStart, newEnd] = e.target.value.split(" - ");
@@ -134,7 +128,7 @@ export default function Episodes({ animeId }) {
                 console.log(episode.id),
                 handleEpisodeClick(episode.id);
             }}
-            className="flex-shrink-0 flex-col items-center mx-1 sm:w-1/2 md:w-1/4 lg:w-1/5 max-w-20"
+            className="flex-shrink-0 flex-col items-center mx-1 sm:w-2/3 md:w-2/3 lg:w-3/12 hover:scale-[103%] duration-100 max-w-20"
           >
             <EpisodeCard episode={episode} />
           </div>

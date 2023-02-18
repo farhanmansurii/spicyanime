@@ -11,18 +11,19 @@ const Player = ({ sources }) => {
   };
 
   return (
-    <div className="w-11/12">
+    <div className="w-full border-b-2 border-rose-500">
       <div className="gap-1 flex py-1  flex-wrap place-content-center items-center">
         {sources.map((video) => (
           <span
             key={video.url}
             onClick={() => handleQualityChange(video.url)}
             class={` ${
-              selectedUrl === video.url ? "bg-white/10   " : "bg-white/30  "
+              selectedUrl === video.url
+                ? "bg-rose-500/80   "
+                : "bg-rose-500/40  "
             }
 
-              "inline-block  text-white py-1 px-3 text-xs opacity-90 transition-opacity hover:opacity-100"
-            `}
+                hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150 w-fit py-1  `}
           >
             {video.quality}
           </span>

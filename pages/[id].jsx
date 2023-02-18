@@ -23,7 +23,7 @@ export default function AnimeDetails(deets) {
       <div className=" flex-column  ">
         <Animedetails deets={deets.deets} />
       </div>
-      <div>
+      <div className="border-rose-500 border-y-2">
         <Episodes animeId={deets.animeId} />
       </div>
       <div className="my-10">

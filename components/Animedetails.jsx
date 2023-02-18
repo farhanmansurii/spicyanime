@@ -8,44 +8,34 @@ const Animedetails = ({ deets }) => {
         <div className="flex    w-[98%]  mx-auto gap-4 ">
           <div className="flex flex-col p-2  flex-0 ">
             <div className=" flex flex-row  flex-wrap  gap-4  w-full  ">
-              <div className="flex text-primary text-4xl uppercase lg:text-6xl font-damion  line-clamp-2 ">
+              <div className="flex text-primary text-4xl py-2 lg:text-5xl font-damion  line-clamp-2 ">
                 {deets.title.userPreferred ||
                   deets.title.english ||
                   deets.title.romaji ||
                   ""}
-                <span className="m-auto  pl-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className="h-10  p-2 bg-rose-500/20 rounded-full block"
-                  >
-                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                  </svg>
-                </span>
               </div>
             </div>
-            <div className="text-sm flex gap-2 py-2">
-              <div className=" bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150 w-fit p-2 ">
+            <div className="text-sm flex flex-wrap gap-2 py-2">
+              <div className=" bg-rose-500/40 hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150 w-fit py-1 ">
                 {deets.rating} ⭐
               </div>
-              <div className=" bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150 w-fit p-2">
+              <div className=" bg-rose-500/40 hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150 w-fit py-1">
                 {deets.releaseDate}
               </div>
 
-              <div className=" bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150   w-fit p-2 ">
+              <div className=" bg-rose-500/40 hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150   w-fit py-1 ">
                 {deets.type}
               </div>
-              <div className="  bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150 w-fit p-2 capitalize">
+              <div className="  bg-rose-500/40 hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150 w-fit py-1 capitalize">
                 {deets.status}
               </div>
-              <div className=" bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150 w-fit p-2 ">
+              <div className=" bg-rose-500/40 hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150 w-fit py-1 ">
                 {deets.totalEpisodes} Episodes
               </div>
             </div>
-            <div className="text-sm flex gap-2 pb-2">
+            <div className="text-sm flex gap-2 pb-2 flex-wrap">
               {deets.genres.slice(0, 3).map((genre) => (
-                <div className=" bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150 w-fit p-2 ">
+                <div className=" bg-rose-500/40 hover:bg-rose-500/30  rounded-full px-4 hover:scale-105 duration-150 w-fit py-1 ">
                   {genre}
                 </div>
               ))}
