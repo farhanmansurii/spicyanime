@@ -44,7 +44,7 @@ const Animedetails = ({ deets }) => {
               </div>
             </div>
             <div className="text-sm flex gap-2 pb-2">
-              {deets.genres.map((genre) => (
+              {deets.genres.slice(0, 3).map((genre) => (
                 <div className=" bg-rose-500/10 hover:bg-rose-500/30 hover:scale-105 duration-150 w-fit p-2 ">
                   {genre}
                 </div>

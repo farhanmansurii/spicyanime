@@ -30,17 +30,18 @@ const Player = ({ sources }) => {
       </div>
 
       {selectedUrl && (
-        <ReactPlayer
-          url={selectedUrl}
-          controls
-          width={"100%"}
-          class="aspect-video"
-          onProgress={(progress) => {
-            const played = progress.played;
-            const percent = played * 100;
-            setPlayedPercent(percent);
-          }}
-        />
+        <div className="  justify-center flex">
+          <ReactPlayer
+            url={selectedUrl}
+            controls
+            height="315px"
+            onProgress={(progress) => {
+              const played = progress.played;
+              const percent = played * 100;
+              setPlayedPercent(percent);
+            }}
+          />
+        </div>
       )}
     </div>
   );
