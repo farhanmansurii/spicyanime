@@ -80,12 +80,12 @@ export default function Episodes({ animeId }) {
   return (
     <div className=" w-[99%] mx-auto text-center my-4  items-center">
       {selectedEpisode && (
-        <div className="flex items-center ml-4   lg:text-2xl my-2 line-clamp-1">
-          Episode {currentEpisode.number} : {currentEpisode.title}
+        <div className="flex items-center text-left   lg:text-2xl my-2 line-clamp-1">
+          Now Playing Episode {currentEpisode.number} : {currentEpisode.title}
         </div>
       )}
       {episode ? (
-        <div className="flex items-center lg:h-[400px] flex-col">
+        <div className="flex items-center  flex-col">
           <Player sources={episode.sources} episode={episode} />
         </div>
       ) : (
@@ -128,7 +128,7 @@ export default function Episodes({ animeId }) {
               setSelectedEpisode(episode.id);
               handleEpisodeClick(episode.id);
             }}
-            className="flex-shrink-0 flex-col items-center mx-1 w-6/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
+            className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
           >
             <EpisodeCard episode={episode} title={episode.title} />{" "}
           </div>
