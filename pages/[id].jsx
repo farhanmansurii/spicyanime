@@ -31,9 +31,11 @@ export default function AnimeDetails(deets) {
       <div className="my-4 w-11/12 mx-auto">
         <Episodes animeId={deets.animeId} />
       </div>
-      <div className="my-10">
-        <Row typeOfAnime={related} text="You might also like" />
-      </div>
+      {related.length > 1 && (
+        <div className="my-10">
+          <Row typeOfAnime={related} text="You might also like" />
+        </div>
+      )}
     </div>
   );
 }
