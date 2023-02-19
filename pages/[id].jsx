@@ -27,9 +27,15 @@ export default function AnimeDetails(deets) {
       <div className=" flex-column  ">
         <Animedetails deets={deets.deets} />
       </div>
-      <div className="my-4 w-11/12 mx-auto">
-        <Episodes animeId={deets.animeId} type={deets.deets.type} />
-      </div>
+      {deets.deets.status === "Not aired Yet" ? (
+        <div className="my-4 w-11/12 mx-auto">
+          <Episodes animeId={deets.animeId} type={deets.deets.type} />
+        </div>
+      ) : (
+        <div className="flex items-center justify-center my-10 font-semibold text-lg">
+          No episodes
+        </div>
+      )}
       {related && related.length > 0 && (
         <div className="my-10">
           <Row typeOfAnime={related} text="You might also like" />
