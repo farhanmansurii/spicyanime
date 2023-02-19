@@ -1,4 +1,4 @@
-function AnimeCard({ animeImg, title, releaseDate }) {
+function AnimeCard({ animeImg, title, releaseDate, relationType, type }) {
   return (
     <div class="relative w-32 h-52 lg:w-36 lg:h-60  overflow-hidden  rounded-lg">
       <img class="object-cover w-full h-full" src={animeImg} alt={title} />
@@ -6,7 +6,10 @@ function AnimeCard({ animeImg, title, releaseDate }) {
         <p class="text-white text-md lg:text-lg font-semibold line-clamp-3">
           {title}
         </p>
-        <p class="text-gray-400 text-sm">{releaseDate}</p>
+        <p class="text-gray-400 text-xs lg:text-sm lowercase ">
+          <span className="capitalize"> {type}</span> •{" "}
+          {releaseDate || relationType}
+        </p>
       </div>
     </div>
   );

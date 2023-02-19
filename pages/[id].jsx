@@ -16,10 +16,11 @@ export async function getServerSideProps(context) {
   };
 }
 function filterRelationType(items) {
-  return items.filter((item) => item.type === "MOVIE" || item.type === "TV");
+  return items?.filter((item) => item.type === "MOVIE" || item.type === "TV");
 }
 export default function AnimeDetails(deets) {
   console.log(deets.deets.relations);
+  console.log(deets);
   const related = filterRelationType(deets.deets.relations);
   return (
     <div>
@@ -27,9 +28,9 @@ export default function AnimeDetails(deets) {
         <Animedetails deets={deets.deets} />
       </div>
       <div className="my-4 w-11/12 mx-auto">
-        <Episodes animeId={deets.animeId} />
+        <Episodes animeId={deets.animeId} type={deets.deets.type} />
       </div>
-      {related.length > 0 && (
+      {related && related.length > 0 && (
         <div className="my-10">
           <Row typeOfAnime={related} text="You might also like" />
         </div>

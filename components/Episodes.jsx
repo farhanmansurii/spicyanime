@@ -13,13 +13,13 @@ const fetcher = async (url) => {
   }
 };
 
-export default function Episodes({ animeId }) {
+export default function Episodes({ animeId, type }) {
   const [episode, setEpisode] = useState(null);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(25);
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
-
+  console.log(type, "type");
   const handleEpisodeClick = (epid) => {
     setSelectedEpisode(epid);
   };
@@ -40,6 +40,11 @@ export default function Episodes({ animeId }) {
       fetchEpisode();
     }
   }, [selectedEpisode]);
+  useEffect(() => {
+    setCurrentEpisode(null);
+    setEpisode(null);
+    setSelectedEpisode(null);
+  }, [animeId]);
 
   const getKey = (pageIndex, previousPageData) => {
     if (pageIndex === 0) {
@@ -76,7 +81,7 @@ export default function Episodes({ animeId }) {
 
   return (
     <div className=" text-center my-4  items-center">
-      {selectedEpisode && (
+      {selectedEpisode && type === "TV" && (
         <div className="flex items-center text-left   lg:text-3xl my-2 line-clamp-1">
           Now Playing Episode {currentEpisode.number} : {currentEpisode.title}
         </div>
@@ -97,7 +102,7 @@ export default function Episodes({ animeId }) {
           />
         </div>
       )}
-      {episodes.length > 1 && (
+      {episodes.length > 26 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
             Episodes
@@ -120,23 +125,34 @@ export default function Episodes({ animeId }) {
             ))}
           </select>
         </div>
+      ) : (
+        type === "TV" && (
+          <div className="my-4 w-[98%] mx-auto text-left text-xl">
+            <label htmlFor="episodeRange" className="mr-2 font-semibold">
+              Episodes {visibleEpisodes.length}
+            </label>
+          </div>
+        )
       )}
 
       <div className="flex flex-row overflow-x-auto w-full scrollbar-hide">
-        {visibleEpisodes.map((episode) => (
-          <div
-            key={episode.id}
-            onClick={() => {
-              setEpisode("");
-              setCurrentEpisode(episode);
-              setSelectedEpisode(episode.id);
-              handleEpisodeClick(episode.id);
-            }}
-            className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
-          >
-            <EpisodeCard episode={episode} title={episode.title} />{" "}
-          </div>
-        ))}
+        {visibleEpisodes.map(
+          (episode) =>
+            type === "TV" && (
+              <div
+                key={episode.id}
+                onClick={() => {
+                  setEpisode("");
+                  setCurrentEpisode(episode);
+                  setSelectedEpisode(episode.id);
+                  handleEpisodeClick(episode.id);
+                }}
+                className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
+              >
+                <EpisodeCard episode={episode} title={episode.title} />{" "}
+              </div>
+            )
+        )}
       </div>
     </div>
   );

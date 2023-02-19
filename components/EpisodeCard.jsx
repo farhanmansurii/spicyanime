@@ -3,7 +3,7 @@ const EpisodeCard = ({ episode, isHovered, onMouseEnter, onMouseLeave }) => {
 
   return (
     <div
-      className={`relative group overflow-hidden cursor-pointer transition-opacity duration-200`}
+      className={`relative group overflow-hidden cursor-pointer transition-opacity duration-200 rounded-lg`}
     >
       <div className="absolute inset-0 z-10 transition-all duration-300  group-hover:opacity-100">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
