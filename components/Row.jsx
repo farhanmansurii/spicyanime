@@ -12,8 +12,8 @@ const Row = ({ typeOfAnime, text }) => {
               key={e.id}
               animeImg={e.image || e.coverImage.large}
               title={e.title.english || e.title.userPreferred}
-              extratext={e.rating}
               id={e.id}
+              releaseDate={e.releaseDate}
             />
           </Link>
         ))}

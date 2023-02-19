@@ -8,7 +8,6 @@ export async function getServerSideProps(context) {
     `https://api.consumet.org/meta/anilist/info/${animeId}?provider=crunchyroll`
   );
   const details = await detailsResponse.json();
-
   return {
     props: {
       deets: details,
@@ -16,18 +15,24 @@ export async function getServerSideProps(context) {
     },
   };
 }
+function filterRelationType(items) {
+  return items.filter(
+    (item) => item.relationType === "PREQUEL" || item.relationType === "SEQUEL"
+  );
+}
 export default function AnimeDetails(deets) {
-  console.log(deets.deets);
+  console.log(deets.deets.relations);
+  const related = filterRelationType(deets.deets.relations);
   return (
     <div>
       <div className=" flex-column  ">
         <Animedetails deets={deets.deets} />
       </div>
-      <div className="border-rose-500 border-y-2">
+      <div className="my-4 w-11/12 mx-auto">
         <Episodes animeId={deets.animeId} />
       </div>
       <div className="my-10">
-        <Row typeOfAnime={deets.deets.relations} text="You might also like" />
+        <Row typeOfAnime={related} text="You might also like" />
       </div>
     </div>
   );

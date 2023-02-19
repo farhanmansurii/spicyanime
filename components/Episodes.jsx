@@ -86,7 +86,7 @@ export default function Episodes({ animeId }) {
       )}
       {episode ? (
         <div className="flex items-center lg:h-[400px] flex-col">
-          <Player sources={episode.sources} />
+          <Player sources={episode.sources} episode={episode} />
         </div>
       ) : (
         <div className=" lg:h-[400px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
@@ -118,19 +118,19 @@ export default function Episodes({ animeId }) {
         </div>
       )}
 
-      <div className="flex flex-row overflow-x-auto w-[98%]  mx-auto scrollbar-hide">
+      <div className="flex flex-row overflow-x-auto w-full scrollbar-hide">
         {visibleEpisodes.map((episode) => (
           <div
             key={episode.id}
             onClick={() => {
-              setEpisode("");
-              setCurrentEpisode(episode),
-                console.log(episode.id),
-                handleEpisodeClick(episode.id);
+              setCurrentEpisode(episode);
+              setSelectedEpisode("");
+              setSelectedEpisode(episode.id);
+              handleEpisodeClick(episode.id);
             }}
-            className="flex-shrink-0 flex-col items-center mx-1 sm:w-2/3 md:w-2/3 lg:w-3/12 hover:scale-[103%] duration-100 max-w-20"
+            className="flex-shrink-0 flex-col items-center mx-1 w-6/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
           >
-            <EpisodeCard episode={episode} />
+            <EpisodeCard episode={episode} title={episode.title} />{" "}
           </div>
         ))}
       </div>
