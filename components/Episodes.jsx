@@ -15,7 +15,6 @@ const fetcher = async (url) => {
 
 export default function Episodes({ animeId }) {
   const [episode, setEpisode] = useState(null);
-  const [episodeError, setEpisodeError] = useState(null);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(25);
   const [currentEpisode, setCurrentEpisode] = useState(null);
@@ -32,10 +31,8 @@ export default function Episodes({ animeId }) {
           `https://api.consumet.org/meta/anilist/watch/${selectedEpisode}`
         );
         setEpisode(response.data);
-        setEpisodeError(null);
       } catch (error) {
         setEpisode(null);
-        setEpisodeError(error);
       }
     };
 
@@ -78,19 +75,26 @@ export default function Episodes({ animeId }) {
   }
 
   return (
-    <div className=" w-[99%] mx-auto text-center my-4  items-center">
+    <div className=" text-center my-4  items-center">
       {selectedEpisode && (
-        <div className="flex items-center text-left   lg:text-2xl my-2 line-clamp-1">
+        <div className="flex items-center text-left   lg:text-3xl my-2 line-clamp-1">
           Now Playing Episode {currentEpisode.number} : {currentEpisode.title}
         </div>
       )}
       {episode ? (
         <div className="flex items-center  flex-col">
-          <Player sources={episode.sources} episode={episode} />
+          <Player
+            sources={episode.sources}
+            episode={episode}
+            key={episode.id}
+          />
         </div>
       ) : (
-        <div className=" lg:h-[400px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-          <img className="w-12" src={Sharingan} />
+        <div className="flex justify-center items-center h-[220px]">
+          <img
+            className="w-12"
+            src="https://media.tenor.com/5nON1L6KUqcAAAAM/sharingan-naruto.gif"
+          />
         </div>
       )}
       {episodes.length > 1 && (
@@ -123,8 +127,8 @@ export default function Episodes({ animeId }) {
           <div
             key={episode.id}
             onClick={() => {
+              setEpisode("");
               setCurrentEpisode(episode);
-              setSelectedEpisode("");
               setSelectedEpisode(episode.id);
               handleEpisodeClick(episode.id);
             }}

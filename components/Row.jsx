@@ -6,7 +6,7 @@ const Row = ({ typeOfAnime, text }) => {
       <h2 className="text-2xl lg:text-3xl my-2 mx-2 "> {text}</h2>
 
       <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-1 ">
-        {typeOfAnime?.map((e) => (
+        {typeOfAnime?.slice(0, 9).map((e) => (
           <Link href={`/${e.id}`} key={e.id}>
             <AnimeCard
               key={e.id}

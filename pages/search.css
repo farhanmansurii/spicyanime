@@ -1,0 +1,19 @@
+.search-hover {
+  outline: none;
+  background-color: red;
+  background-image: url("https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-21.png"); /* Add your search icon image path here */
+  background-size: 22px;
+  background-position: 13px;
+  background-repeat: no-repeat;
+  border-radius: 100px;
+
+  width: 30px;
+  height: 30px;
+  padding: 25px;
+  transition: all 0.5s;
+}
+
+.search-hover:hover {
+  width: 300px;
+  padding-left: 50px;
+}

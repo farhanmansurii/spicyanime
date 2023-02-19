@@ -16,9 +16,7 @@ export async function getServerSideProps(context) {
   };
 }
 function filterRelationType(items) {
-  return items.filter(
-    (item) => item.relationType === "PREQUEL" || item.relationType === "SEQUEL"
-  );
+  return items.filter((item) => item.type === "MOVIE" || item.type === "TV");
 }
 export default function AnimeDetails(deets) {
   console.log(deets.deets.relations);
@@ -31,7 +29,7 @@ export default function AnimeDetails(deets) {
       <div className="my-4 w-11/12 mx-auto">
         <Episodes animeId={deets.animeId} />
       </div>
-      {related.length > 1 && (
+      {related.length > 0 && (
         <div className="my-10">
           <Row typeOfAnime={related} text="You might also like" />
         </div>
