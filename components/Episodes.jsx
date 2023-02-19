@@ -126,8 +126,7 @@ export default function Episodes({ animeId, type }) {
           </select>
         </div>
       ) : (
-        type === "TV" &&
-        visibleEpisodes.length > 0 && (
+        type === "TV" && (
           <div className="my-4 w-[98%] mx-auto text-left text-xl">
             <label htmlFor="episodeRange" className="mr-2 font-semibold">
               Episodes {visibleEpisodes.length}
