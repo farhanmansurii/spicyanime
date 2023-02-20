@@ -4,7 +4,7 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-
+    "./node_modules/tw-elements/dist/js/**/*.js",
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
@@ -12,7 +12,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    // ...
-    require("@tailwindcss/line-clamp"),
+    // ...plugins: [require("tw-elements/dist/plugin")]
+    require("@tailwindcss/line-clamp", "tw-elements/dist/plugin"),
   ],
 };
