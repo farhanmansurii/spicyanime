@@ -37,7 +37,7 @@ function Anime() {
                     <Link
                       href={`/${episode.id}`}
                       key={episode.id}
-                      className="flex-shrink-0 flex-col items-center mx-1 aspect-video  h-3/12 lg:h-full max-w-8/12 min-w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
+                      className="flex-shrink-0 flex-col items-center mx-1 aspect-video  h-[113px] w-[200px] lg:h-full lg:w-1/4 xl:w-3/12  duration-100"
                     >
                       <div key={episode.id}>
                         <RecentEpisodeCard episode={episode} />
