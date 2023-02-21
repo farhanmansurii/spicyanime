@@ -3,7 +3,7 @@ import Link from "next/link";
 const CarousalCard = (props) => {
   return (
     <div className="w-full relative  h-[250px] lg:h-[350px]  ">
-      <div className="absolute inset-0 bottom-0 bg-gradient-to-t from-black to-transparent" />
+      <div className="absolute inset-0 bottom-0 bg-gradient-to-t from-[#0b090a] to-transparent" />
       <div
         style={{
           backgroundImage: `url(${props.props.cover})`,
