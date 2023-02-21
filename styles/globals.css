@@ -2,11 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
+
 body {
   font-family: "Inter", sans-serif;
-  color: #f5f3f4;
-  background-color: black;
+  color: #d3d3d3;
+  background-color: #0b090a;
+}
+::-webkit-scrollbar {
+  width: 4px;
+  height: 5px;
+  padding: 1rem;
+  z-index: 50;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 20px;
+}
+.Flipped,
+.Flipped .Content {
+  transform: rotateX(180deg);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #e63946;
+  border-radius: 10rem;
 }

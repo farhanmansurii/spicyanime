@@ -4,9 +4,8 @@ const Row = ({ typeOfAnime, text }) => {
   return (
     <div className="w-11/12 gap mx-auto mb-10   ">
       <h2 className="text-2xl lg:text-3xl my-2 mx-2 "> {text}</h2>
-
-      <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-1 ">
-        {typeOfAnime?.slice(0, 9).map((e) => (
+      <div className="  flex overflow-x-scroll relative z-10 p-2  space-x-1 ">
+        {typeOfAnime?.map((e) => (
           <Link href={`/${e.id}`} key={e.id}>
             <AnimeCard
               key={e.id}

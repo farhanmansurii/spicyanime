@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const CarousalCard = (props) => {
   return (
-    <div className="w-full relative border-white h-[250px] lg:h-[350px]  ">
+    <div className="w-full relative  h-[250px] lg:h-[350px]  ">
       <div className="absolute inset-0 bottom-0 bg-gradient-to-t from-black to-transparent" />
       <div
         style={{
@@ -18,7 +18,7 @@ const CarousalCard = (props) => {
         <div className="mx-auto text-left text-3xl lg:text-5xl w-full">
           {props.props.title.english || props.props.title.userPreferred || ""}
         </div>
-        <div className="capitalize w-2/3 text-white/50 ml-1 lg:w-6/12 text-[8px] lg:text-xs flex line-clamp-2 lg:line-clamp-3">
+        <div className="capitalize w-2/3 text-[#f5f3f4]/40 ml-1 lg:w-6/12 text-[8px] lg:text-xs flex line-clamp-2 lg:line-clamp-3">
           {props.props.description}
         </div>
         <div className="my-2 gap-2 flex">

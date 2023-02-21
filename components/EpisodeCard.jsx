@@ -6,12 +6,10 @@ const EpisodeCard = ({ episode }) => {
       className={`relative group overflow-hidden cursor-pointer transition-opacity duration-200 rounded-lg`}
     >
       <div className="absolute inset-0 z-10 transition-all duration-300  group-hover:opacity-100">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b090a] to-transparent" />
         <div className="absolute bottom-0 left-0 w-full  h-full px-4 py-2 flex flex-col justify-end">
-          <h3 className="text-lg font-bold text-white ">
-            Episode {episode.number}
-          </h3>
-          <p className="text-sm text-white lg:opacity-0 group-hover:opacity-100 duration-150">
+          <h3 className="text-lg font-bold  ">Episode {episode.number}</h3>
+          <p className="text-sm  lg:opacity-0 group-hover:opacity-100 duration-150">
             {episode.title}
           </p>
         </div>

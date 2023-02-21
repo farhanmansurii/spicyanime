@@ -9,11 +9,11 @@ export const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 function Anime() {
   const { data: popular, isLoading: popularIsLoading } = useSWR(
-    "https://api.consumet.org/meta/anilist/popular",
+    "https://api.consumet.org/meta/anilist/popular?perPage=20",
     fetcher
   );
   const { data: action, isLoading: actionIsLoading } = useSWR(
-    "https://api.consumet.org/meta/anilist/trending",
+    "https://api.consumet.org/meta/anilist/trending?perPage=20",
     fetcher
   );
   const { data: recentlyreleased } = useSWR(
