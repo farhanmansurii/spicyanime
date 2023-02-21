@@ -1,4 +1,5 @@
 import CarousalProducts from "@/components/CarousalContainer";
+import NavigationBar from "@/components/Navigationbar";
 import RecentEpisodeCard from "@/components/RecentEpisodeCard";
 import Row from "@/components/Row";
 import axios from "axios";
@@ -49,6 +50,7 @@ function Anime() {
           </div>
           <Row typeOfAnime={popular?.results} text="Popular Anime" />
         </div>
+        <NavigationBar />
       </div>
     </div>
   );
