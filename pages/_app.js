@@ -1,3 +1,4 @@
+import NavigationBar from "@/components/Navigationbar";
 import "@/styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Component {...pageProps} />
+      <NavigationBar />
     </>
   );
 }
