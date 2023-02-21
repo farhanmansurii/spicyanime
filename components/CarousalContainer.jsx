@@ -14,8 +14,8 @@ export default function CarousalProducts(anime) {
             }}
             withoutControls
           >
-            {anime.anime.slice(0, 4).map((anim) => (
-              <CarousalCard props={anim} />
+            {anime.anime.slice(0, 4).map((anim, index) => (
+              <CarousalCard props={anim} key={index} />
             ))}
           </Carousel>
         </div>

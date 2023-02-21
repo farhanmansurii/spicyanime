@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const CarousalCard = (props) => {
   return (
     <div className="w-full relative border-white h-[250px] lg:h-[350px]  ">
@@ -20,22 +22,24 @@ const CarousalCard = (props) => {
           {props.props.description}
         </div>
         <div className="my-2 gap-2 flex">
-          <button className="p-2 lg:p-3 text-xs flex bg-rose-500/30 backdrop-blur-sm hover:scale-110 hover:bg-rose-500 hover:text-black duration-150 rounded-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
-              />
-            </svg>
-          </button>
+          <Link href={`/${props.props.id}`}>
+            <button className="p-2 lg:p-3 text-xs flex bg-rose-500/30 backdrop-blur-sm hover:scale-110 hover:bg-rose-500 hover:text-black duration-150 rounded-full">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+                />
+              </svg>
+            </button>
+          </Link>
           <button className="p-2 lg:p-3 text-xs bg-rose-500/30 backdrop-blur-sm hover:scale-110 hover:bg-rose-500 hover:text-black hover:rotate-180 duration-150 rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -9,7 +9,6 @@ export async function getServerSideProps(context) {
     `https://api.consumet.org/meta/anilist/info/${animeId}?provider=crunchyroll`
   );
   const details = await detailsResponse.json();
-  console.log(details, "details");
   return {
     props: {
       deets: details,

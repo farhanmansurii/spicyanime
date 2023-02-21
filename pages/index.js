@@ -20,7 +20,6 @@ function Anime() {
     "https://api.consumet.org/meta/anilist/recent-episodes?page=1&perPage=10",
     fetcher
   );
-  console.log(recentlyreleased, "episodes");
   return (
     <div>
       <div className="flex flex-col   pb-24 lg:pb-10">
@@ -38,7 +37,7 @@ function Anime() {
                     <Link
                       href={`/${episode.id}`}
                       key={episode.id}
-                      className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 duration-100"
+                      className="flex-shrink-0 flex-col items-center mx-1 aspect-video  w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
                     >
                       <div key={episode.id}>
                         <RecentEpisodeCard episode={episode} />

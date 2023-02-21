@@ -19,7 +19,6 @@ export default function Episodes({ animeId, type }) {
   const [end, setEnd] = useState(25);
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
-  console.log(type, "type");
   const handleEpisodeClick = (epid) => {
     setSelectedEpisode(epid);
   };
