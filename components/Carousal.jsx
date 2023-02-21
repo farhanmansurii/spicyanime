@@ -13,11 +13,11 @@ const CarousalCard = (props) => {
         }}
         className="h-full"
       />
-      <div className="z-50 flex gap-3 flex-col absolute w-11/12 mx-auto justify-end uppercase inset-0">
+      <div className="z-50 flex lg:gap-3 flex-col absolute w-11/12 mx-auto justify-end uppercase inset-0">
         <div className="mx-auto text-left text-3xl lg:text-5xl w-full">
           {props.props.title.english || props.props.title.userPreferred || ""}
         </div>
-        <div className="capitalize w-2/3 text-white/50 ml-1 lg:w-6/12 text-[8px] lg:text-xs flex line-clamp-3">
+        <div className="capitalize w-2/3 text-white/50 ml-1 lg:w-6/12 text-[8px] lg:text-xs flex line-clamp-2 lg:line-clamp-3">
           {props.props.description}
         </div>
         <div className="my-2 gap-2 flex">
