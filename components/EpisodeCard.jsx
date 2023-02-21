@@ -1,4 +1,4 @@
-const EpisodeCard = ({ episode, isHovered, onMouseEnter, onMouseLeave }) => {
+const EpisodeCard = ({ episode }) => {
   const imageUrl = episode.image;
 
   return (
