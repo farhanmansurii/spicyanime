@@ -9,7 +9,7 @@ body {
   background-color: #0b090a;
 }
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
   height: 5px;
   padding: 1rem;
   z-index: 50;
@@ -18,10 +18,13 @@ body {
 
 ::-webkit-scrollbar-track {
   border-radius: 20px;
+  scrollbar-shadow-color: #d3d3d3;
 }
-.Flipped,
-.Flipped .Content {
-  transform: rotateX(180deg);
+
+@media (max-width: 640px) {
+  :-webkit-scrollbar {
+    display: none;
+  }
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 0;
