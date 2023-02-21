@@ -40,7 +40,7 @@ const CarousalCard = (props) => {
               </svg>
             </button>
           </Link>
-          <button className="p-2 lg:p-3 text-xs bg-rose-500/30 backdrop-blur-sm hover:scale-110 hover:bg-rose-500 hover:text-black hover:rotate-180 duration-150 rounded-full">
+          <button className="p-2 lg:p-3 text-xs bg-rose-500 backdrop-blur-sm hover:scale-110 hover:bg-rose-500 hover:text-black hover:rotate-180 duration-150 rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
