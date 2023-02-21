@@ -1,5 +1,4 @@
 const CarousalCard = (props) => {
-  console.log(props.props.id, "carousal");
   return (
     <div className="w-full relative border-white h-[250px] lg:h-[350px]  ">
       <div className="absolute inset-0 bottom-0 bg-gradient-to-t from-black to-transparent" />

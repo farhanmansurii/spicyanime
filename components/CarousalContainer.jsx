@@ -1,7 +1,6 @@
 import Carousel from "nuka-carousel/lib/carousel";
 import CarousalCard from "./Carousal";
 export default function CarousalProducts(anime) {
-  console.log(anime.anime, "anime");
   return (
     <>
       <>

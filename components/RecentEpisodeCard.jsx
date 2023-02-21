@@ -1,6 +1,5 @@
 const RecentEpisodeCard = ({ episode }) => {
   const imageUrl = episode.image;
-
   return (
     <>
       <div
@@ -10,7 +9,7 @@ const RecentEpisodeCard = ({ episode }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent" />
           <div className="absolute bottom-0 left-0 w-full  h-full px-4 py-2 flex flex-col justify-end">
             <h3 className="text-md  text-white line-clamp-2">
-              {episode.title.english || episode.title.english || ""}
+              {episode.title.english || episode.title.userPreferred || ""}
             </h3>
             <p className="text-sm  text-white/50 ">
               Episode {episode.episodeNumber}
