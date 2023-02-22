@@ -26,18 +26,19 @@ const Animedetails = ({ deets }) => {
               </div>
 
               <div className="hover:scale-105 duration-150   w-fit py-1 ">
-                {deets.type}
+                <span className="uppercase"> {deets.type}</span>
                 <span className="ml-2">•</span>
               </div>
 
               <div className=" hover:scale-105 duration-150 w-fit py-1 capitalize">
                 {deets.status}
-                <span className="ml-2">•</span>
+                {deets.type === "TV" && <span className="ml-2">•</span>}
               </div>
-
-              <div className="hover:scale-105 duration-150 w-fit py-1 ">
-                {deets.totalEpisodes} Episodes
-              </div>
+              {deets.type === "TV" && (
+                <div className="hover:scale-105 duration-150 w-fit py-1 ">
+                  {deets.totalEpisodes} Episodes
+                </div>
+              )}
             </div>
             <div className="text-sm flex gap-2 pb-2 flex-wrap">
               {deets.genres.map((genre, index) => (
