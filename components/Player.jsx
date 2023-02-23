@@ -17,8 +17,31 @@ const Player = ({ sources, episode }) => {
   }, [episode]);
 
   return (
-    <div key={episode.id} className="w-full ">
-      <div className="gap-1 flex py-1 flex-wrap place-content-center items-center">
+    <div key={episode.id} className="w-full mb-7 ">
+      
+
+      {selectedUrl && episode ? (
+        <div className="justify-center flex ">
+          <div className="aspect-video  border-2 border-[#e63946]">
+            <ReactPlayer
+              url={selectedUrl}
+              controls
+              width={'100%'}
+              height={'100%'}
+              style={{ top: 0, left: 0, width: '100%', height: '100%' }}
+              onProgress={(progress) => {
+                const played = progress.played;
+                const percent = played * 100;
+                setPlayedPercent(percent);
+              }}
+            />
+          </div>
+          
+        </div>
+      ) : (
+        <div>Loading</div>
+      )}
+      <div className="gap-1 flex   flex-wrap relative place-content-end lg:place-content-center items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -36,7 +59,7 @@ const Player = ({ sources, episode }) => {
         <select
           value={selectedUrl}
           onChange={(event) => handleQualityChange(event.target.value)}
-          className=" px-4 py-1 bg-transparent focus:outline-none focus:ring focus:ring-rose-500"
+          className=" px-4 py-2  bg-[#e63946] rounded-b-xl focus:outline-none "
         >
           {sources
             .filter(
@@ -50,26 +73,6 @@ const Player = ({ sources, episode }) => {
             ))}
         </select>
       </div>
-
-      {selectedUrl && episode ? (
-        <div className="justify-center flex ">
-          <div className="aspect-video ">
-            <ReactPlayer
-              url={selectedUrl}
-              controls
-              height={204}
-              width={360}
-              onProgress={(progress) => {
-                const played = progress.played;
-                const percent = played * 100;
-                setPlayedPercent(percent);
-              }}
-            />
-          </div>
-        </div>
-      ) : (
-        <div>Loading</div>
-      )}
     </div>
   );
 };

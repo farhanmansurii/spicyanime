@@ -10,7 +10,7 @@ const SearchPage = () => {
     async function fetchData() {
       setisloading(true);
       const data = await fetch(
-        `https://api.consumet.org/meta/anilist/advanced-search?query=${debouncedSearch}&page=1&perPage=10`
+        `https://spicyapi.vercel.app/meta/anilist/advanced-search?query=${debouncedSearch}&page=1&perPage=10`
       ).then((res) => res.json());
       setSearchList(data.results);
       setisloading(false);

@@ -6,7 +6,7 @@ import Row from "@/components/Row";
 export async function getServerSideProps(context) {
   const animeId = context.query.id;
   const detailsResponse = await fetch(
-    `https://api.consumet.org/meta/anilist/info/${animeId}?provider=crunchyroll`
+    `https://spicyapi.vercel.app/meta/anilist/data/${animeId}?provider=crunchyroll`
   );
   const details = await detailsResponse.json();
   return {

@@ -4,24 +4,31 @@ import Row from "@/components/Row";
 import axios from "axios";
 import Link from "next/link";
 import useSWR, { SWRConfig } from "swr";
-
+import Spinner from "react-spinner-material";
 export const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 function Anime() {
   const { data: popular, isLoading: popularIsLoading } = useSWR(
-    "https://api.consumet.org/meta/anilist/popular?perPage=20",
+    "https://spicyapi.vercel.app/meta/anilist/popular?perPage=20",
     fetcher
   );
   const { data: action, isLoading: actionIsLoading } = useSWR(
-    "https://api.consumet.org/meta/anilist/trending?perPage=20",
+    "https://spicyapi.vercel.app/meta/anilist/trending?perPage=20",
     fetcher
   );
   const { data: recentlyreleased } = useSWR(
-    "https://api.consumet.org/meta/anilist/recent-episodes?page=1&perPage=10",
+    "https://spicyapi.vercel.app/meta/anilist/recent-episodes?page=1&perPage=10",
     fetcher
   );
   return (
-    <div>
+
+
+    <div>{
+      popularIsLoading || actionIsLoading ?
+        (<div className=" h-[100vh]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
+          <Spinner color="#e63946" />
+
+        </div>) : (
       <div className="flex flex-col   pb-24 lg:pb-10">
         {popular && <CarousalProducts anime={popular?.results} />}
         <div className="my-10">
@@ -48,8 +55,10 @@ function Anime() {
             </div>
           </div>
           <Row typeOfAnime={popular?.results} text="Popular Anime" />
+
         </div>
-      </div>
+      </div>)
+    }
     </div>
   );
 }

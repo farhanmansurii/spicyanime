@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Spinner from "react-spinner-material";
 import useSWRInfinite from "swr/infinite";
 import Sharingan from "../styles/sharingan.gif";
 import EpisodeCard from "./EpisodeCard";
@@ -27,7 +28,7 @@ export default function Episodes({ animeId, type }) {
     const fetchEpisode = async () => {
       try {
         const response = await axios.get(
-          `https://api.consumet.org/meta/anilist/watch/${selectedEpisode}`
+          `https://spicyapi.vercel.app/meta/anilist/watch/${selectedEpisode}`
         );
         setEpisode(response.data);
       } catch (error) {
@@ -47,12 +48,12 @@ export default function Episodes({ animeId, type }) {
 
   const getKey = (pageIndex, previousPageData) => {
     if (pageIndex === 0) {
-      return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
+      return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime`;
     }
     if (!previousPageData.length) {
       return null;
     }
-    return `https://api.consumet.org/meta/anilist/episodes/${animeId}?provider=gogoanime`;
+    return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime`;
   };
 
   const { data, error } = useSWRInfinite(getKey, fetcher, {
@@ -63,7 +64,7 @@ export default function Episodes({ animeId, type }) {
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        <img className="w-12" src={Sharingan} />
+       <Spinner color="#e63946"/>
       </div>
     );
   const episodes = data.flatMap((page) => page);
@@ -94,12 +95,9 @@ export default function Episodes({ animeId, type }) {
           />
         </div>
       ) : (
-        <div className="flex justify-center items-center h-[220px]">
-          <img
-            className="w-12"
-            src="https://media.tenor.com/5nON1L6KUqcAAAAM/sharingan-naruto.gif"
-          />
-        </div>
+        <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
+       <Spinner color="#e63946"/>
+      </div>
       )}
       {episodes.length > 26 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
