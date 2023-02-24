@@ -22,12 +22,12 @@ const Player = ({ sources, episode }) => {
 
       {selectedUrl && episode ? (
         <div className="justify-center flex ">
-          <div className="aspect-video  border-2 border-[#e63946]">
+            <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ReactPlayer
               url={selectedUrl}
               controls
-              width={'100%'}
-              height={'100%'}
+              width={"100%"}
+              height={"100%"}
               style={{ top: 0, left: 0, width: '100%', height: '100%' }}
               onProgress={(progress) => {
                 const played = progress.played;
