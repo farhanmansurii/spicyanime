@@ -1,8 +1,10 @@
+import { addEpisode } from "@/redux/reducers/recentlyWatchedReducers";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { RxResume, RxTrackNext } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-spinner-material";
 import useSWRInfinite from "swr/infinite";
-import Sharingan from "../styles/sharingan.gif";
 import EpisodeCard from "./EpisodeCard";
 import Player from "./Player";
 const fetcher = async (url) => {
@@ -15,6 +17,8 @@ const fetcher = async (url) => {
 };
 
 export default function Episodes({ animeId, type }) {
+  const dispatch = useDispatch();
+  const continueWatching = useSelector((state) => state.recentlyWatched.items);
   const [episode, setEpisode] = useState(null);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(25);
@@ -23,7 +27,6 @@ export default function Episodes({ animeId, type }) {
   const handleEpisodeClick = (epid) => {
     setSelectedEpisode(epid);
   };
-
   useEffect(() => {
     const fetchEpisode = async () => {
       try {
@@ -48,12 +51,12 @@ export default function Episodes({ animeId, type }) {
 
   const getKey = (pageIndex, previousPageData) => {
     if (pageIndex === 0) {
-      return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime`;
+      return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime&fetchFiller=true`;
     }
     if (!previousPageData.length) {
       return null;
     }
-    return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime`;
+    return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime&fetchFiller=true`;
   };
 
   const { data, error } = useSWRInfinite(getKey, fetcher, {
@@ -64,7 +67,7 @@ export default function Episodes({ animeId, type }) {
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-       <Spinner color="#e63946"/>
+        <Spinner color="#e63946" />
       </div>
     );
   const episodes = data.flatMap((page) => page);
@@ -73,17 +76,50 @@ export default function Episodes({ animeId, type }) {
     setSelectedEpisode(data[0][0].id);
   }
   const visibleEpisodes = episodes.slice(start - 1, end);
-
   const options = [];
   for (let i = 0; i < episodes.length; i += 25) {
     options.push(`${i + 1} - ${Math.min(i + 25, episodes.length)}`);
   }
 
+  const handleNextEpisode = () => {
+    if (currentEpisode.number < episodes.length)
+      handleClickEpisode(episodes[currentEpisode.number]);
+  };
+  const handleClickEpisode = (episode) => {
+    setEpisode("");
+    setCurrentEpisode(episode);
+    setSelectedEpisode(episode.id);
+    handleEpisodeClick(episode.id);
+    dispatch(addEpisode({ ...episode, animeId }));
+  };
   return (
     <div className=" text-center my-4  items-center">
+      {continueWatching.map(
+        (e) =>
+          e.animeId === animeId &&
+          e.episode.number !== currentEpisode?.number && (
+            <div
+              onClick={() => handleClickEpisode(e.episode)}
+              className="bg-[#e63946] w-fit px-3  py-2 rounded-xl flex"
+            >
+              <RxResume className="my-auto mx-2" />
+              Ep {e.episode.number} {e.episode.title}
+            </div>
+          )
+      )}
       {selectedEpisode && type === "TV" && (
-        <div className="flex items-center text-left   lg:text-3xl my-2 line-clamp-1">
-          Now Playing Episode {currentEpisode.number} : {currentEpisode.title}
+        <div className=" items-center flex gap-3   lg:text-3xl my-2 ">
+          <div className=" ">
+            Now Playing Episode {currentEpisode.number} : {currentEpisode.title}
+          </div>
+          {currentEpisode.number < episodes.length && (
+            <div
+              className="bg-[#e63946] p-2 rounded-full "
+              onClick={() => handleNextEpisode(episode)}
+            >
+              <RxTrackNext className="lg:w-6 lg:h-6" />
+            </div>
+          )}
         </div>
       )}
       {episode ? (
@@ -96,8 +132,8 @@ export default function Episodes({ animeId, type }) {
         </div>
       ) : (
         <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-       <Spinner color="#e63946"/>
-      </div>
+          <Spinner color="#e63946" />
+        </div>
       )}
       {episodes.length > 26 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
@@ -107,7 +143,7 @@ export default function Episodes({ animeId, type }) {
           <select
             name="episodeRange"
             id="episodeRange"
-            className="bg-rose-500/50 rounded-full px-3 outline-none  backdrop-blur-sm py-1 scrollbar-hide overflow-hidden"
+            className="bg-[#e63946] rounded-full px-3 outline-none  backdrop-blur-sm py-1 scrollbar-hide overflow-hidden"
             value={`${start} - ${end}`}
             onChange={(e) => {
               const [newStart, newEnd] = e.target.value.split(" - ");
@@ -138,12 +174,7 @@ export default function Episodes({ animeId, type }) {
             type === "TV" && (
               <div
                 key={episode.id}
-                onClick={() => {
-                  setEpisode("");
-                  setCurrentEpisode(episode);
-                  setSelectedEpisode(episode.id);
-                  handleEpisodeClick(episode.id);
-                }}
+                onClick={() => handleClickEpisode(episode)}
                 className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
               >
                 <EpisodeCard episode={episode} title={episode.title} />{" "}

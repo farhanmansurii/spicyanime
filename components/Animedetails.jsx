@@ -8,7 +8,7 @@ const Animedetails = ({ deets }) => {
         <div className="flex w-[96%]   lg:w-11/12 mx-auto gap-4 ">
           <div className="flex flex-col p-2  flex-0 ">
             <div className=" flex flex-row  flex-wrap  gap-4  w-full  ">
-              <div className="flex text-primary text-4xl py-2 lg:text-5xl font-damion  line-clamp-2 ">
+              <div className="flex text-primary text-4xl pt-2 lg:text-5xl font-damion  line-clamp-2 ">
                 {deets.title.userPreferred ||
                   deets.title.english ||
                   deets.title.romaji ||
@@ -17,22 +17,24 @@ const Animedetails = ({ deets }) => {
             </div>
             <div className="text-sm flex flex-wrap gap-2 pb-2">
               <div className="hover:scale-105 duration-150 w-fit py-1 ">
-                {deets.rating} ⭐<span className="ml-2">•</span>
+                {deets.rating} ⭐<span className="ml-2 text-[#e63946]">•</span>
               </div>
 
               <div className="hover:scale-105 duration-150 w-fit py-1">
                 {deets.releaseDate}
-                <span className="ml-2">•</span>
+                <span className="ml-2 text-[#e63946]">•</span>
               </div>
 
               <div className="hover:scale-105 duration-150   w-fit py-1 ">
                 <span className="uppercase"> {deets.type}</span>
-                <span className="ml-2">•</span>
+                <span className="ml-2 text-[#e63946]">•</span>
               </div>
 
               <div className=" hover:scale-105 duration-150 w-fit py-1 capitalize">
                 {deets.status}
-                {deets.type === "TV" && <span className="ml-2">•</span>}
+                {deets.type === "TV" && (
+                  <span className="ml-2 text-[#e63946]">•</span>
+                )}
               </div>
               {deets.type === "TV" && (
                 <div className="hover:scale-105 duration-150 w-fit py-1 ">
@@ -48,7 +50,7 @@ const Animedetails = ({ deets }) => {
                 >
                   {genre}
                   {index !== deets.genres.length - 1 && (
-                    <span className="ml-2">•</span>
+                    <span className="ml-2 text-[#e63946]">•</span>
                   )}
                 </div>
               ))}

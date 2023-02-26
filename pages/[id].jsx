@@ -21,6 +21,7 @@ function filterRelationType(items) {
 }
 export default function AnimeDetails(deets) {
   const related = filterRelationType(deets.deets.relations);
+
   const notreleasedyet = deets.deets.status === "Not yet aired" ? true : false;
   return (
     <div className="pb-[7rem]">
