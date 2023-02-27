@@ -28,7 +28,7 @@ const SearchPage = () => {
             placeholder="
             
             Search for any Anime TV / Movie"
-            className=" placeholder:text-[#f5f3f4a5] bg-red-500/20 rounded-lg px-4 py-2 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0"
+            className=" placeholder:text-[black] bg-[#e63946]  rounded-full  border-4 border-black/50 px-4 py-4 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0"
             input={val}
             onChange={(e) => setval(e.target.value)}
           />
