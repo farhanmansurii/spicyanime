@@ -110,8 +110,8 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
       )}
       {selectedEpisode && type === "TV" && (
         <div className=" text-left flex gap-3  justify-between lg:text-3xl my-2 ">
-          <div className=" flex my-auto gap-2  ">
-           <span className="text-[#e63946]  font-semibold">Now Playing E{currentEpisode.number} {"   "}</span>  {currentEpisode.title}
+          <div className=" inline my-auto gap-2 flex-nowrap  ">
+           <span className="text-[#e63946] inline-flex flex-wrap  font-semibold">Now Playing E{currentEpisode.number}</span>  {currentEpisode.title}
           </div>
           {currentEpisode.number < episodes.length && (
             <div
