@@ -1,8 +1,9 @@
 import { addEpisode } from "@/redux/reducers/recentlyWatchedReducers";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { RxResume, RxTrackNext } from "react-icons/rx";
+import { MdOutlineNavigateNext, RxTrackNext } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import {RxResume} from 'react-icons/rx'
 import Spinner from "react-spinner-material";
 import useSWRInfinite from "swr/infinite";
 import EpisodeCard from "./EpisodeCard";
@@ -100,7 +101,7 @@ export default function Episodes({ animeId, type }) {
           e.episode.number !== currentEpisode?.number && (
             <div
               onClick={() => handleClickEpisode(e.episode)}
-              className="bg-[#e63946] w-fit px-3  py-2 rounded-xl flex"
+              className="bg-[#e63946] border-4 border-black/50 text-black w-fit px-3  py-2 rounded-xl flex"
             >
               <RxResume className="my-auto mx-2" />
               Ep {e.episode.number} {e.episode.title}
@@ -114,10 +115,10 @@ export default function Episodes({ animeId, type }) {
           </div>
           {currentEpisode.number < episodes.length && (
             <div
-              className="bg-[#e63946] p-2 rounded-full "
+              className="bg-[#e63946] border-4 border-black/50 text-black p-2 rounded-full "
               onClick={() => handleNextEpisode(episode)}
             >
-              <RxTrackNext className="lg:w-6 lg:h-6" />
+              <MdOutlineNavigateNext className="lg:w-6 lg:h-6" />
             </div>
           )}
         </div>

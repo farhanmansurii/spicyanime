@@ -7,6 +7,7 @@ export default function CarousalProducts(anime) {
         <div className=" w-full  mx-auto ">
           <Carousel
             wrapAround={true}
+            autoplay={true}
             defaultControlsConfig={{
               pagingDotsStyle: {
                 fill: "none",
@@ -14,7 +15,7 @@ export default function CarousalProducts(anime) {
             }}
             withoutControls
           >
-            {anime.anime.slice(0, 4).map((anim, index) => (
+            {anime.anime.map((anim, index) => (
               <CarousalCard props={anim} key={index} />
             ))}
           </Carousel>

@@ -32,7 +32,6 @@ function Anime() {
       dispatch(updateRecentlyWatched(JSON.parse(storedState)));
     }
   }, []);
-  console.log(recentlyWatched);
   return (
     <div>
       {popularIsLoading || actionIsLoading ? (
@@ -41,7 +40,7 @@ function Anime() {
         </div>
       ) : (
         <div className="flex flex-col   pb-24 lg:pb-10">
-          {popular && <CarousalProducts anime={popular?.results} />}
+          {popular && <CarousalProducts anime={action?.results} />}
           <div className="my-10">
             {recentlyWatched.length > 0 && (
               <div className="w-11/12 gap mx-auto mb-10   ">

@@ -1,5 +1,6 @@
 import Link from "next/link";
-
+import { BsFillPlayFill } from 'react-icons/bs'
+import {AiOutlinePlus} from 'react-icons/ai'
 const CarousalCard = (props) => {
   return (
     <div className="w-full relative  h-[250px] lg:h-[350px]  ">
@@ -21,42 +22,15 @@ const CarousalCard = (props) => {
         <div className="capitalize w-2/3 text-[#f5f3f4]/40 ml-1 lg:w-6/12 text-[8px] lg:text-xs flex line-clamp-2 lg:line-clamp-3">
           {props.props.description}
         </div>
-        <div className="my-2 gap-2 flex">
-          <Link href={`/${props.props.id}`}>
-            <button className="p-2 lg:p-3 text-xs flex bg-[#e63946] border-2 border-black text-black backdrop-blur-sm hover:scale-110 hover:bg-black hover:text-[#e63946] duration-150 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
-                />
-              </svg>
-            </button>
-          </Link>
-          <button className="p-2 lg:p-3 text-xs bg-black border-2 border-[#e63946] text-[#e63946] hover:scale-110 hover:bg-[#e63946] hover:text-black hover:rotate-180 duration-150 rounded-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-          </button>
+        <div className="flex gap-3">
+
+        <Link className="w-fit flex" href={`/${props.props.id}`}>
+          <span>  <BsFillPlayFill className=" text-black border-4 border-black/50 w-12 h-12 bg-[#e63946] p-2 rounded-full " /> </span> <span></span>
+        </Link>
+          <span>  <AiOutlinePlus className=" bg-black border-4 border-[#e63946]/50 w-12 h-12 text-[#e63946] p-2 rounded-full " /> </span> <span></span>
         </div>
+
+
       </div>
     </div>
   );

@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="absolute w-full my-6 lg:my-4">
-      <div className=" flex justify-between lg:justify-start gap-5 w-11/12 mx-auto">
+      <div className=" text-black flex justify-between lg:justify-start gap-5 w-11/12 mx-auto">
         <Link href="/">
-          <button className="p-3 bg-black/20 backdrop-blur-3xl rounded-full hover:scale-125 duration-200 border-4 border-white/20">
+          <button className="p-3 bg-[#e63946] backdrop-blur-3xl rounded-full hover:scale-125 duration-200 border-4 border-black/50">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -22,7 +22,7 @@ export default function Navbar() {
             </svg>
           </button>
         </Link>
-        <button className="p-3 bg-black/20 backdrop-blur-3xl rounded-full hover:scale-125 duration-200 border-4 border-white/20">
+        <button className="p-3 bg-[#e63946] backdrop-blur-3xl rounded-full hover:scale-125 duration-200 border-4 border-black/50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
