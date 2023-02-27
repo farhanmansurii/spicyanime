@@ -144,7 +144,7 @@ export default function Episodes({ animeId, type }) {
           <select
             name="episodeRange"
             id="episodeRange"
-            className="bg-[#e63946] rounded-full px-3 outline-none  backdrop-blur-sm py-1 scrollbar-hide overflow-hidden"
+            className="bg-[#e63946]  border-4 border-black/50 text-sm lg:text-lg rounded-full px-3 outline-none  text-black font-bold py-1 scrollbar-hide overflow-hidden"
             value={`${start} - ${end}`}
             onChange={(e) => {
               const [newStart, newEnd] = e.target.value.split(" - ");

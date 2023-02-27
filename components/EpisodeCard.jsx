@@ -4,12 +4,12 @@ const EpisodeCard = ({ episode }) => {
   return (
     <div className="relative group overflow-hidden cursor-pointer transition-opacity duration-200 rounded-lg w-full h-0 pb-[56.25%] aspect-w-16 aspect-h-9">
       <div className="absolute inset-0 z-10 transition-all duration-300  group-hover:opacity-100">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0b090a] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t group-hover:from-[#e63946] from-black to-transparent" />
         {episode.isFiller && (
           <div className="px-4 py-2 text-center bg-[#e63946]">filler</div>
         )}
-        <div className="absolute bottom-0 left-0 w-full  h-full px-4 py-2 flex flex-col justify-end">
-          <h3 className="text-lg font-bold  ">Episode {episode.number}</h3>
+        <div className="absolute bottom-0 left-0 group-hover:text-black w-full  h-full px-4 py-2 flex flex-col justify-end">
+          <h3 className="text-lg font-semibold  ">Episode {episode.number}</h3>
           <p className="text-sm  opacity-70">{episode.title}</p>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import useDebounce from "@/hooks/useDebounce";
 import { useEffect, useState } from "react";
+import Spinner from "react-spinner-material";
 import Row from "../components/Row";
 const SearchPage = () => {
   const [val, setval] = useState("");
@@ -40,10 +41,7 @@ const SearchPage = () => {
             <Row typeOfAnime={searchList} />
           ) : (
             <div className="w-fit h-[200px] my-auto ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-              <img
-                className="w-12"
-                src="https://media.tenor.com/5nON1L6KUqcAAAAM/sharingan-naruto.gif"
-              />
+             <Spinner color="#e63946" />
             </div>
           )}
         </div>

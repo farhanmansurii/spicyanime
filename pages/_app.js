@@ -5,10 +5,11 @@ import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 import { Provider } from "react-redux";
 const progress = new ProgressBar({
-  size: 4,
-  color: "#e63946",
+  size: 6,
+  color: "#ba0000",
   className: "bar-of-progress",
   delay: 150,
+
 });
 
 Router.events.on("routeChangeStart", progress.start);
