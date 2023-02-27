@@ -17,7 +17,7 @@ const fetcher = async (url) => {
   }
 };
 
-export default function Episodes({ animeId, type }) {
+export default function Episodes({ animeId, type ,totalEpisodes }) {
   const dispatch = useDispatch();
   const continueWatching = useSelector((state) => state.recentlyWatched.items);
   const [episode, setEpisode] = useState(null);
@@ -64,7 +64,7 @@ export default function Episodes({ animeId, type }) {
     revalidateOnFocus: false,
   });
 
-  if (error) return <div>No Episodes</div>;
+  if (error) return <div className=" h-[200px] text-2xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">{error.message}</div>;
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
@@ -103,22 +103,22 @@ export default function Episodes({ animeId, type }) {
               onClick={() => handleClickEpisode(e.episode)}
               className="bg-[#e63946] border-4 border-black/50 text-black w-fit px-3  py-2 rounded-xl flex"
             >
-              <RxResume className="my-auto mx-2" />
-              Ep {e.episode.number} {e.episode.title}
+             Continue 
+              E{e.episode.number} {e.episode.title} ?
             </div>
           )
       )}
       {selectedEpisode && type === "TV" && (
-        <div className=" items-center flex gap-3   lg:text-3xl my-2 ">
-          <div className=" ">
-            Now Playing Episode {currentEpisode.number} : {currentEpisode.title}
+        <div className=" text-left flex gap-3   lg:text-3xl my-2 ">
+          <div className="  ">
+           <span className="text-[#e63946] font-semibold">Now Playing E{currentEpisode.number}</span>  {currentEpisode.title}
           </div>
           {currentEpisode.number < episodes.length && (
             <div
               className="bg-[#e63946] border-4 border-black/50 text-black p-2 rounded-full "
               onClick={() => handleNextEpisode(episode)}
             >
-              <MdOutlineNavigateNext className="lg:w-6 lg:h-6" />
+              <MdOutlineNavigateNext className="h-6 lg:h-8 w-6 lg:w-8" />
             </div>
           )}
         </div>
@@ -139,12 +139,12 @@ export default function Episodes({ animeId, type }) {
       {episodes.length > 26 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
-            Episodes
+            Episode Range
           </label>
           <select
             name="episodeRange"
             id="episodeRange"
-            className="bg-[#e63946]  border-4 border-black/50 text-sm lg:text-lg rounded-full px-3 outline-none  text-black font-bold py-1 scrollbar-hide overflow-hidden"
+            className="bg-[#e63946]  border-4 p-3 border-black/50 text-sm lg:text-lg rounded-lg px-3 outline-none  text-black font-semibold py-1 scrollbar-hide overflow-hidden"
             value={`${start} - ${end}`}
             onChange={(e) => {
               const [newStart, newEnd] = e.target.value.split(" - ");
@@ -163,7 +163,7 @@ export default function Episodes({ animeId, type }) {
         type === "TV" && (
           <div className="my-4 w-[98%] mx-auto text-left text-xl">
             <label htmlFor="episodeRange" className="mr-2 font-semibold">
-              Episodes {visibleEpisodes.length}
+              Episodes {visibleEpisodes.length}/{totalEpisodes}
             </label>
           </div>
         )

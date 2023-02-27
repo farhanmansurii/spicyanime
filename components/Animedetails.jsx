@@ -8,7 +8,7 @@ const Animedetails = ({ deets }) => {
         <div className="flex w-[96%]   lg:w-11/12 mx-auto gap-4 ">
           <div className="flex flex-col p-2  flex-0 ">
             <div className=" flex flex-row  flex-wrap  gap-4  w-full  ">
-              <div className="flex text-primary text-4xl pt-2 lg:text-5xl font-damion  line-clamp-2 ">
+              <div className="flex text-primary text-5xl pt-2 lg:text-6xl my-5 font-damion  font-semibold line-clamp-2 ">
                 {deets.title.userPreferred ||
                   deets.title.english ||
                   deets.title.romaji ||

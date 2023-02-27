@@ -20,6 +20,7 @@ function filterRelationType(items) {
   return items?.filter((item) => item.type === "MOVIE" || item.type === "TV");
 }
 export default function AnimeDetails(deets) {
+  console.log(deets)
   const related = filterRelationType(deets.deets.relations);
 
   const notreleasedyet = deets.deets.status === "Not yet aired" ? true : false;
@@ -27,12 +28,16 @@ export default function AnimeDetails(deets) {
     <div className="pb-[7rem]">
       <Navbar />
       <div className=" flex-column  ">
-        <Animedetails deets={deets.deets} />
+        {deets.deets.title ?
+          <Animedetails deets={deets.deets} />
+          :  <div className=" h-[200px] my-10 text-3xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">{deets.deets.message}</div>
+        }
+
       </div>
-      {}
+      { }
       {!notreleasedyet ? (
         <div className="my-4 w-11/12 mx-auto">
-          <Episodes animeId={deets.animeId} type={deets.deets.type} />
+          <Episodes animeId={deets.animeId} type={deets.deets.type} totalEpisodes={deets.deets?.totalEpisodes} />
         </div>
       ) : (
         <div className="my-4 w-11/12 mx-auto text-2xl justify-center text-center">

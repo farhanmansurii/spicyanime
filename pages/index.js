@@ -4,6 +4,7 @@ import RecentEpisodeRow from "@/components/RecentEpisodeRow";
 import Row from "@/components/Row";
 import { updateRecentlyWatched } from "@/redux/reducers/recentlyWatchedReducers";
 import axios from "axios";
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
