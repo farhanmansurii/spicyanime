@@ -22,7 +22,7 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
   const continueWatching = useSelector((state) => state.recentlyWatched.items);
   const [episode, setEpisode] = useState(null);
   const [start, setStart] = useState(1);
-  const [end, setEnd] = useState(25);
+  const [end, setEnd] = useState(26);
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
   const handleEpisodeClick = (epid) => {
@@ -78,8 +78,8 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
   }
   const visibleEpisodes = episodes.slice(start - 1, end);
   const options = [];
-  for (let i = 0; i < episodes.length; i += 25) {
-    options.push(`${i + 1} - ${Math.min(i + 25, episodes.length)}`);
+  for (let i = 0; i < episodes.length; i += 26) {
+    options.push(`${i + 1} - ${Math.min(i + 26, episodes.length)}`);
   }
 
   const handleNextEpisode = () => {
@@ -109,9 +109,9 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
           )
       )}
       {selectedEpisode && type === "TV" && (
-        <div className=" text-left flex gap-3   lg:text-3xl my-2 ">
-          <div className="  ">
-           <span className="text-[#e63946] font-semibold">Now Playing E{currentEpisode.number}</span>  {currentEpisode.title}
+        <div className=" text-left flex gap-3  justify-between lg:text-3xl my-2 ">
+          <div className=" flex my-auto gap-2  ">
+           <span className="text-[#e63946]  font-semibold">Now Playing E{currentEpisode.number} {"   "}</span>  {currentEpisode.title}
           </div>
           {currentEpisode.number < episodes.length && (
             <div
@@ -136,7 +136,7 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
           <Spinner color="#e63946" />
         </div>
       )}
-      {episodes.length > 26 ? (
+      {episodes.length >= 27 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
             Episode Range

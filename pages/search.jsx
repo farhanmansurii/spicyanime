@@ -34,7 +34,10 @@ const SearchPage = () => {
             onChange={(e) => setval(e.target.value)}
           />
         </div>
-        <div className="w-11/12 mx-auto text-4xl my-4 px-4 ">Search Results for : {val}</div>
+        {
+          val &&
+          <div className="w-11/12 mx-auto text-4xl my-4 px-4 ">Search Results for : {val}</div>
+        }
         <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
           {val === "" ? (
             ""

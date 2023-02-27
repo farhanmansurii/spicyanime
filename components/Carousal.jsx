@@ -19,7 +19,7 @@ const CarousalCard = (props) => {
         <div className="mx-auto text-left text-3xl lg:text-5xl w-full capitalize">
           {props.props.title.english || props.props.title.userPreferred || ""}
         </div>
-        <div className="text-sm hidden lg:block capitalize lg:line-clamp-2 w-6/12">
+        <div className="text-sm hidden opacity-50 lg:block capitalize lg:line-clamp-2 w-6/12">
           {props.props.description}
         </div>
         <div className="flex pt-3 gap-3">
