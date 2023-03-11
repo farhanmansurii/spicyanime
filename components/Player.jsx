@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
+import Hls from "hls.js";
+import { useEffect, useRef, useState } from "react";
 
 const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
@@ -10,33 +10,47 @@ const Player = ({ sources, episode }) => {
   const handleQualityChange = (url) => {
     setSelectedUrl(url);
   };
-
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
     setPlayedPercent(0);
   }, [episode]);
+  const playerRef = useRef(null);
+
+  useEffect(() => {
+    if (!playerRef.current) return;
+
+    const video = playerRef.current;
+    const hls = new Hls();
+
+    // HLS.js requires the video element to be muted before loading
+    video.muted = true;
+
+    hls.loadSource(selectedUrl);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+      video.muted = false;
+      video.play();
+    });
+
+    return () => {
+      hls.destroy();
+    };
+  }, [selectedUrl]);
 
   return (
     <div key={episode.id} className="w-full mb-7 ">
-      
-
       {selectedUrl && episode ? (
         <div className="justify-center flex ">
-            <div className="w-full h-full   lg:w-[720px] aspect-video ">
-            <ReactPlayer
-              url={selectedUrl}
+          <div className="w-full h-full   lg:w-[720px] aspect-video ">
+            <video
+              ref={playerRef}
               controls
-              width={"100%"}
-              height={"100%"}
-              style={{ top: 0, left: 0, width: '100%', height: '100%' }}
-              onProgress={(progress) => {
-                const played = progress.played;
-                const percent = played * 100;
-                setPlayedPercent(percent);
-              }}
+              width="100%"
+              height="100%"
+              style={{ top: 0, left: 0, width: "100%", height: "100%" }}
             />
           </div>
-          
         </div>
       ) : (
         <div>Loading</div>
