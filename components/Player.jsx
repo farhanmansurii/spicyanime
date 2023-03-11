@@ -1,40 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
     sources.find((video) => video.quality === "default")?.url
   );
-  const [playedPercent, setPlayedPercent] = useState(0);
-  const [isReady, setIsReady] = useState(false);
 
-  const handleQualityChange = useCallback((url) => {
+  const handleQualityChange = (url) => {
     setSelectedUrl(url);
-  }, []);
+  };
 
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
-    setPlayedPercent(0);
   }, [episode]);
-
-  const handleReady = useCallback(() => {
-    setIsReady(true);
-  }, []);
-
-  const handleProgress = useCallback(
-    (progress) => {
-      if (isReady) {
-        const played = progress.played;
-        const percent = played * 100;
-        setPlayedPercent(percent);
-      }
-    },
-    [isReady]
-  );
-
-  const handleError = useCallback((error) => {
-    console.error("An error occurred while playing the video", error);
-  }, []);
 
   return (
     <div key={episode.id} className="w-full mb-7 ">
@@ -47,9 +25,6 @@ const Player = ({ sources, episode }) => {
               width={"100%"}
               height={"100%"}
               style={{ top: 0, left: 0, width: "100%", height: "100%" }}
-              onReady={handleReady}
-              onProgress={handleProgress}
-              onError={handleError}
               config={{
                 file: {
                   forceHLS: true,
