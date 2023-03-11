@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
-const Player = ({ sources }) => {
+const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
     sources.find((video) => video.quality === "default")?.url
   );
@@ -12,11 +12,11 @@ const Player = ({ sources }) => {
 
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
-  }, [sources]);
+  }, [episode]);
 
   return (
-    <div className="w-full mb-7 ">
-      {selectedUrl ? (
+    <div key={episode.id} className="w-full mb-7 ">
+      {selectedUrl && episode ? (
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ReactPlayer
@@ -25,15 +25,6 @@ const Player = ({ sources }) => {
               width={"100%"}
               height={"100%"}
               style={{ top: 0, left: 0, width: "100%", height: "100%" }}
-              config={{
-                file: {
-                  forceHLS: true,
-                },
-                hls: {
-                  enableWorker: true,
-                  enableSoftwareAES: true,
-                },
-              }}
             />
           </div>
         </div>
