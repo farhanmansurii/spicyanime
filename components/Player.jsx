@@ -12,6 +12,26 @@ const Player = ({ sources, episode }) => {
   const handleQualityChange = (url) => {
     setSelectedUrl(url);
   };
+  const config = {
+    file: {
+      hlsOptions: {
+        startPosition: -1,
+        liveSyncDurationCount: 3,
+        liveMaxLatencyDurationCount: 10,
+        maxBufferLength: 30,
+        maxBufferSize: 60 * 1000 * 1000, // 60 MB
+        lowLatencyMode: true,
+        enableWorker: true,
+        enableSoftwareAES: true,
+        manifestLoadingTimeOut: 10000,
+        manifestLoadingMaxRetry: 5,
+        levelLoadingTimeOut: 10000,
+        levelLoadingMaxRetry: 5,
+        fragLoadingTimeOut: 10000,
+        fragLoadingMaxRetry: 5,
+      },
+    },
+  };
 
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
@@ -40,8 +60,8 @@ const Player = ({ sources, episode }) => {
             <ReactPlayer
               url={selectedUrl}
               controls
-              playing
               width="100%"
+              config={config}
               height="100%"
               style={{ top: 0, left: 0, width: "100%", height: "100%" }}
               onProgress={(progress) => {
