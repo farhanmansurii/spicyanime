@@ -9,9 +9,10 @@ const Player = ({ sources, episode }) => {
   const [playedPercent, setPlayedPercent] = useState(0);
   const [player, setPlayer] = useState(null);
 
-  const handleQualityChange = (url) => {
+  const handleQualityChange = useCallback((url) => {
     setSelectedUrl(url);
-  };
+  }, []);
+
   const config = {
     file: {
       hlsOptions: {
@@ -38,9 +39,9 @@ const Player = ({ sources, episode }) => {
     setPlayedPercent(0);
   }, [episode]);
 
-  const handlePlayerReady = (player) => {
+  const handlePlayerReady = useCallback((player) => {
     setPlayer(player);
-  };
+  }, []);
 
   useEffect(() => {
     if (player) {
@@ -64,11 +65,6 @@ const Player = ({ sources, episode }) => {
               config={config}
               height="100%"
               style={{ top: 0, left: 0, width: "100%", height: "100%" }}
-              onProgress={(progress) => {
-                const played = progress.played;
-                const percent = played * 100;
-                setPlayedPercent(percent);
-              }}
               onReady={handlePlayerReady}
             />
           </div>
