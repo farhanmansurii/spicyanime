@@ -1,3 +1,4 @@
+import Hls from "hls.js";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
@@ -5,6 +6,8 @@ const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
     sources.find((video) => video.quality === "default")?.url
   );
+  const [playedPercent, setPlayedPercent] = useState(0);
+  const [player, setPlayer] = useState(null);
 
   const handleQualityChange = (url) => {
     setSelectedUrl(url);
@@ -12,7 +15,22 @@ const Player = ({ sources, episode }) => {
 
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
+    setPlayedPercent(0);
   }, [episode]);
+
+  const handlePlayerReady = (player) => {
+    setPlayer(player);
+  };
+
+  useEffect(() => {
+    if (player) {
+      if (selectedUrl.endsWith(".m3u8")) {
+        const hls = new Hls();
+        hls.loadSource(selectedUrl);
+        hls.attachMedia(player.getInternalPlayer());
+      }
+    }
+  }, [player, selectedUrl]);
 
   return (
     <div key={episode.id} className="w-full mb-7 ">
@@ -22,9 +40,16 @@ const Player = ({ sources, episode }) => {
             <ReactPlayer
               url={selectedUrl}
               controls
-              width={"100%"}
-              height={"100%"}
+              playing
+              width="100%"
+              height="100%"
               style={{ top: 0, left: 0, width: "100%", height: "100%" }}
+              onProgress={(progress) => {
+                const played = progress.played;
+                const percent = played * 100;
+                setPlayedPercent(percent);
+              }}
+              onReady={handlePlayerReady}
             />
           </div>
         </div>
