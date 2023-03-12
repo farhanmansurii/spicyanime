@@ -27,9 +27,5 @@ const MyComponent = ({ source }) => {
 export default function ArtPlayer({ source }) {
   const supported = Hls.isSupported();
 
-  return (
-    <div>
-      <MyComponent source={source} />
-    </div>
-  );
+  return <MyComponent source={source} />;
 }
