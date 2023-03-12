@@ -60,6 +60,7 @@ const Player = ({ sources, episode }) => {
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ReactPlayer
               url={selectedUrl}
+              light={<img src={episode?.image} />}
               controls
               width="100%"
               config={config}
