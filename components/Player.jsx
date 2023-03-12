@@ -85,7 +85,8 @@ const Player = ({ sources, episode }) => {
         <select
           value={selectedUrl}
           onChange={(event) => handleQualityChange(event.target.value)}
-          className=" px-4 py-2  bg-[#e63946] border-4 border-black/50 text-black rounded-xl focus:outline-none "
+          className=" px-4 py-2 
+           bg-[#e63946] border-4 border-black/50 text-black rounded-xl focus:outline-none "
         >
           {sources
             .filter(
