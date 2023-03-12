@@ -1,5 +1,5 @@
 import Hls from "hls.js";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 const Player = ({ sources, episode }) => {
