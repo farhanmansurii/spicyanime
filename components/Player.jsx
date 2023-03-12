@@ -1,6 +1,6 @@
 import Hls from "hls.js";
-import { useCallback, useEffect, useState } from "react";
-import ArtPlayer from "./Artplayer";
+import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 
 const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
@@ -58,9 +58,15 @@ const Player = ({ sources, episode }) => {
       {selectedUrl && episode ? (
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
-            <div>
-              <ArtPlayer source={selectedUrl} />
-            </div>
+            <ReactPlayer
+              url={selectedUrl}
+              controls
+              width="100%"
+              config={config}
+              height="100%"
+              style={{ top: 0, left: 0, width: "100%", height: "100%" }}
+              onReady={handlePlayerReady}
+            />
           </div>
         </div>
       ) : (
