@@ -29,11 +29,7 @@ export default function ArtPlayer({ source }) {
 
   return (
     <div>
-      {supported ? (
-        <MyComponent source={source} />
-      ) : (
-        "HLS is not supported in your browser"
-      )}
+      <MyComponent source={source} />
     </div>
   );
 }
