@@ -1,4 +1,3 @@
-import artplayerPluginControl from "artplayer-plugin-control";
 import artplayerPluginHlsQuality from "artplayer-plugin-hls-quality";
 import Hls from "hls.js";
 import dynamic from "next/dynamic";
@@ -66,10 +65,8 @@ const Player = ({ sources, episode }) => {
                 autoPlayback: true,
                 lock: true,
                 autoOrientation: true,
-                airplay: true,
 
                 plugins: [
-                  artplayerPluginControl(),
                   artplayerPluginHlsQuality({
                     // Show quality in control
                     control: true,
@@ -90,6 +87,7 @@ const Player = ({ sources, episode }) => {
                 fullscreen: true,
                 fastForward: true,
                 title: "title",
+
                 autoSize: true,
               }}
               className="aspect-video"
