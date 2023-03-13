@@ -1,6 +1,7 @@
 import Hls from "hls.js";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
-import ArtPlayer from "./ArtPlayer";
+const ArtPlayer = dynamic(() => import("./ArtPlayer"), { ssr: false });
 
 const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
@@ -12,27 +13,6 @@ const Player = ({ sources, episode }) => {
   const handleQualityChange = useCallback((url) => {
     setSelectedUrl(url);
   }, []);
-
-  const config = {
-    file: {
-      hlsOptions: {
-        startPosition: -1,
-        liveSyncDurationCount: 3,
-        liveMaxLatencyDurationCount: 10,
-        maxBufferLength: 30,
-        maxBufferSize: 60 * 1000 * 1000, // 60 MB
-        lowLatencyMode: true,
-        enableWorker: true,
-        enableSoftwareAES: true,
-        manifestLoadingTimeOut: 10000,
-        manifestLoadingMaxRetry: 5,
-        levelLoadingTimeOut: 10000,
-        levelLoadingMaxRetry: 5,
-        fragLoadingTimeOut: 10000,
-        fragLoadingMaxRetry: 5,
-      },
-    },
-  };
 
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
@@ -59,9 +39,20 @@ const Player = ({ sources, episode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ArtPlayer
-              source={`https://cors.haikei.xyz/${selectedUrl}`}
-              episode={episode}
-              qualities={sources}
+              option={{
+                url: `https://cors.haikei.xyz/${selectedUrl}`,
+                setting: true,
+                screenshot: true,
+                fullscreen: true,
+                fastForward: true,
+                title: episode?.id || "hi",
+              }}
+              style={{
+                width: "600px",
+                height: "400px",
+                margin: "60px auto 0",
+              }}
+              getInstance={(art) => console.info(art)}
             />
           </div>
         </div>

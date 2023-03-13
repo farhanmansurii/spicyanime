@@ -1,61 +1,42 @@
-import { useEffect, useRef, useState } from "react";
-
+import Artplayer from "artplayer";
 import Hls from "hls.js";
-import Plyr from "plyr-react";
-import "plyr/dist/plyr.css";
+import { useEffect, useRef } from "react";
 
-const MyComponent = ({ source, episode }) => {
-  const ref = useRef(null);
-  const [isIOS, setIsIOS] = useState(false);
+export default function Player({ option, getInstance, ...rest }) {
+  const artRef = useRef();
 
   useEffect(() => {
-    const loadVideo = async () => {
-      const video = document.getElementById("plyr");
-      var hls = new Hls();
-      hls.loadSource(source);
-      hls.attachMedia(video);
-      ref.current.plyr.media = video;
+    const art = new Artplayer({
+      customType: {
+        m3u8: function playM3u8(video, url, art) {
+          if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            art.hls = hls;
+            art.once("url", () => hls.destroy());
+            art.once("destroy", () => hls.destroy());
+          } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+            video.src = url;
+          } else {
+            art.notice.show = "Unsupported playback format: m3u8";
+          }
+        },
+      },
+      ...option,
+      container: artRef.current,
+    });
 
-      hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        ref.current.plyr.play();
-      });
+    if (getInstance && typeof getInstance === "function") {
+      getInstance(art);
+    }
+
+    return () => {
+      if (art && art.destroy) {
+        art.destroy(false);
+      }
     };
-    loadVideo();
+  }, []);
 
-    // Detect if the device is an iPhone
-    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    setIsIOS(iOS);
-  }, [source]);
-
-  if (isIOS) {
-    // Use a different video player for iOS
-    return (
-      <video id="plyr" controls playsInline>
-        <source src={source} type="application/x-mpegURL" />
-      </video>
-    );
-  } else {
-    // Use Plyr for other devices
-    return (
-      <Plyr
-        id="plyr"
-        source
-        iosNative={true}
-        autoPlay={false}
-        playsInline={true}
-        title={episode?.title}
-        ref={ref}
-      />
-    );
-  }
-};
-
-export default function ArtPlayer({ source, episode }) {
-  const supported = Hls.isSupported();
-
-  return (
-    <div>
-      <MyComponent source={source} episode={episode} />
-    </div>
-  );
+  return <div ref={artRef} {...rest}></div>;
 }
