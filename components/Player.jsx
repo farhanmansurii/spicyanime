@@ -1,6 +1,8 @@
+import artplayerPluginHlsQuality from "artplayer-plugin-hls-quality";
 import Hls from "hls.js";
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
-import ReactPlayer from "react-player";
+const ArtPlayer = dynamic(() => import("./ArtPlayer"), { ssr: false });
 
 const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
@@ -12,27 +14,6 @@ const Player = ({ sources, episode }) => {
   const handleQualityChange = useCallback((url) => {
     setSelectedUrl(url);
   }, []);
-
-  const config = {
-    file: {
-      hlsOptions: {
-        startPosition: -1,
-        liveSyncDurationCount: 3,
-        liveMaxLatencyDurationCount: 10,
-        maxBufferLength: 30,
-        maxBufferSize: 60 * 1000 * 1000, // 60 MB
-        lowLatencyMode: true,
-        enableWorker: true,
-        enableSoftwareAES: true,
-        manifestLoadingTimeOut: 10000,
-        manifestLoadingMaxRetry: 5,
-        levelLoadingTimeOut: 10000,
-        levelLoadingMaxRetry: 5,
-        fragLoadingTimeOut: 10000,
-        fragLoadingMaxRetry: 5,
-      },
-    },
-  };
 
   useEffect(() => {
     setSelectedUrl(sources.find((video) => video.quality === "default")?.url);
@@ -58,15 +39,61 @@ const Player = ({ sources, episode }) => {
       {selectedUrl && episode ? (
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
-            <ReactPlayer
-              url={`https://cors.haikei.xyz/${selectedUrl}`}
-              light={true}
-              controls
-              width="100%"
-              config={config}
-              height="100%"
-              style={{ top: 0, left: 0, width: "100%", height: "100%" }}
-              onReady={handlePlayerReady}
+            <ArtPlayer
+              option={{
+                url: `${selectedUrl}`,
+                poster: episode?.image || "",
+                backdrop: true,
+                playsInline: true,
+                autoPlayback: true,
+                airplay: true,
+                theme: "#e63946",
+                miniProgressBar: true,
+                volume: 0.5,
+                isLive: false,
+                muted: false,
+                autoplay: false,
+                autoSize: true,
+                autoMini: true,
+                screenshot: true,
+                setting: true,
+
+                playbackRate: true,
+                aspectRatio: true,
+                fullscreen: true,
+                miniProgressBar: true,
+                mutex: true,
+                backdrop: true,
+                playsInline: true,
+                autoPlayback: true,
+                lock: true,
+                autoOrientation: true,
+                airplay: true,
+                plugins: [
+                  artplayerPluginHlsQuality({
+                    // Show quality in control
+                    control: true,
+
+                    // Show quality in setting
+                    setting: true,
+
+                    // Get the resolution text from level
+                    getResolution: (level) => level.height + "P",
+
+                    // I18n
+                    title: "Quality",
+                    auto: "auto",
+                  }),
+                ],
+                setting: true,
+                screenshot: true,
+                fullscreen: true,
+                fastForward: true,
+                title: "title",
+                autoSize: true,
+              }}
+              className="aspect-video"
+              getInstance={(art) => console.info(art)}
             />
           </div>
         </div>
@@ -91,7 +118,8 @@ const Player = ({ sources, episode }) => {
         <select
           value={selectedUrl}
           onChange={(event) => handleQualityChange(event.target.value)}
-          className=" px-4 py-2  bg-[#e63946] border-4 border-black/50 text-black rounded-xl focus:outline-none "
+          className=" px-4 py-2 
+           bg-[#e63946] border-4 border-black/50 text-black rounded-xl focus:outline-none "
         >
           {sources
             .filter(
