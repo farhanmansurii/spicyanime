@@ -40,18 +40,15 @@ const Player = ({ sources, episode }) => {
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ArtPlayer
               option={{
-                url: `https://cors.haikei.xyz/${selectedUrl}`,
+                url: selectedUrl,
                 setting: true,
                 screenshot: true,
                 fullscreen: true,
                 fastForward: true,
                 title: episode?.id || "hi",
+                autoSize: true,
               }}
-              style={{
-                width: "600px",
-                height: "400px",
-                margin: "60px auto 0",
-              }}
+              className=" aspect-video "
               getInstance={(art) => console.info(art)}
             />
           </div>
