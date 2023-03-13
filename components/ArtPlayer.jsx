@@ -30,8 +30,8 @@ const MyComponent = ({ source, episode }) => {
   if (isIOS) {
     // Use a different video player for iOS
     return (
-      <video id="plyr" controls>
-        <source src={source} type="video/mp4" />
+      <video id="plyr" controls playsInline>
+        <source src={source} type="application/x-mpegURL" />
       </video>
     );
   } else {
@@ -39,16 +39,8 @@ const MyComponent = ({ source, episode }) => {
     return (
       <Plyr
         id="plyr"
-        style={{ colorScheme: "light", accentColor: "red" }}
-        options={{
-          volume: 0.1,
-          enabled: true,
-          fallback: true,
-          iosNative: false,
-          container: null,
-        }}
         source
-        iosNative={false}
+        iosNative={true}
         autoPlay={false}
         playsInline={true}
         title={episode?.title}

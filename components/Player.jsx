@@ -61,6 +61,7 @@ const Player = ({ sources, episode }) => {
             <ArtPlayer
               source={`https://cors.haikei.xyz/${selectedUrl}`}
               episode={episode}
+              qualities={sources}
             />
           </div>
         </div>
