@@ -1,9 +1,8 @@
 import { addEpisode } from "@/redux/reducers/recentlyWatchedReducers";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { MdOutlineNavigateNext, RxTrackNext } from "react-icons/md";
+import { MdOutlineNavigateNext } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import {RxResume} from 'react-icons/rx'
 import Spinner from "react-spinner-material";
 import useSWRInfinite from "swr/infinite";
 import EpisodeCard from "./EpisodeCard";
@@ -17,7 +16,7 @@ const fetcher = async (url) => {
   }
 };
 
-export default function Episodes({ animeId, type ,totalEpisodes }) {
+export default function Episodes({ animeId, type, totalEpisodes }) {
   const dispatch = useDispatch();
   const continueWatching = useSelector((state) => state.recentlyWatched.items);
   const [episode, setEpisode] = useState(null);
@@ -64,7 +63,12 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
     revalidateOnFocus: false,
   });
 
-  if (error) return <div className=" h-[200px] text-2xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">{error.message}</div>;
+  if (error)
+    return (
+      <div className=" h-[200px] text-2xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
+        {error.message}
+      </div>
+    );
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
@@ -103,15 +107,17 @@ export default function Episodes({ animeId, type ,totalEpisodes }) {
               onClick={() => handleClickEpisode(e.episode)}
               className="bg-[#e63946] border-4 border-black/50 text-black w-fit px-3  py-2 rounded-xl flex"
             >
-             Continue 
-              E{e.episode.number} {e.episode.title} ?
+              Continue E{e.episode.number} {e.episode.title} ?
             </div>
           )
       )}
       {selectedEpisode && type === "TV" && (
         <div className=" text-left flex gap-3  justify-between lg:text-3xl my-2 ">
           <div className=" inline line-clamp-2 my-auto gap-2 flex-nowrap  ">
-           <span className="text-[#e63946] inline-flex flex-wrap  font-semibold">Now Playing E{currentEpisode.number}</span>  {currentEpisode.title}
+            <span className="text-[#e63946] inline-flex flex-wrap  font-semibold">
+              Now Playing E{currentEpisode.number}
+            </span>{" "}
+            {currentEpisode.title}
           </div>
           {currentEpisode.number < episodes.length && (
             <div
