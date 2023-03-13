@@ -41,7 +41,8 @@ const Player = ({ sources, episode }) => {
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ArtPlayer
               option={{
-                url: selectedUrl || `https://cors.haikei.xyz/${selectedUrl}`,
+                url: `${selectedUrl}`,
+                poster: episode?.image || "",
                 backdrop: true,
                 playsInline: true,
                 autoPlayback: true,
@@ -81,7 +82,7 @@ const Player = ({ sources, episode }) => {
 
                     // I18n
                     title: "Quality",
-                    auto: "Auto",
+                    auto: "auto",
                   }),
                 ],
                 setting: true,
