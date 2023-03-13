@@ -46,7 +46,6 @@ const Player = ({ sources, episode }) => {
                 backdrop: true,
                 playsInline: true,
                 autoPlayback: true,
-                airplay: true,
                 theme: "#e63946",
                 miniProgressBar: true,
                 volume: 0.5,
@@ -54,7 +53,6 @@ const Player = ({ sources, episode }) => {
                 muted: false,
                 autoplay: false,
                 autoSize: true,
-                autoMini: true,
                 screenshot: true,
                 setting: true,
 
@@ -69,7 +67,9 @@ const Player = ({ sources, episode }) => {
                 lock: true,
                 autoOrientation: true,
                 airplay: true,
+
                 plugins: [
+                  artplayerPluginControl(),
                   artplayerPluginHlsQuality({
                     // Show quality in control
                     control: true,
