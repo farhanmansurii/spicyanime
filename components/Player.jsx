@@ -59,7 +59,7 @@ const Player = ({ sources, episode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ArtPlayer
-              source={`https://proxy.vnxservers.com/${selectedUrl}`}
+              source={`https://cors.haikei.xyz/${selectedUrl}`}
               episode={episode}
             />
           </div>
