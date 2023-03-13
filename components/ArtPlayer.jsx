@@ -25,8 +25,11 @@ const MyComponent = ({ source, episode }) => {
     <Plyr
       id="plyr"
       style={{ colorScheme: "light", accentColor: "red" }}
-      options={{ volume: 0.1 }}
+      options={{ volume: 0.1, enabled: true, fallback: true, iosNative: false, container: null }}
       source
+      iosNative={false}
+      autoPlay={false}
+      playsInline={true}
       title={episode?.title}
       ref={ref}
     />
