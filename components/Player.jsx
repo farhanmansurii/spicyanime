@@ -41,8 +41,7 @@ const Player = ({ sources, episode }) => {
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ArtPlayer
               option={{
-                url: `${selectedUrl}`,
-                poster: episode?.image || "",
+                url: selectedUrl,
                 backdrop: true,
                 playsInline: true,
                 autoPlayback: true,
