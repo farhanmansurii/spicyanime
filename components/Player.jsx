@@ -1,3 +1,4 @@
+import artplayerPluginControl from "artplayer-plugin-control";
 import artplayerPluginHlsQuality from "artplayer-plugin-hls-quality";
 import Hls from "hls.js";
 import dynamic from "next/dynamic";
