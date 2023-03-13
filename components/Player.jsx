@@ -59,8 +59,8 @@ const Player = ({ sources, episode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ReactPlayer
-              url={selectedUrl}
-              light={<img src={episode?.image} />}
+              url={`https://cors.haikei.xyz/${selectedUrl}`}
+              light={true}
               controls
               width="100%"
               config={config}
