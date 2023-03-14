@@ -40,8 +40,9 @@ const Player = ({ sources, episode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <ArtPlayer
+            source={selectedUrl}
               option={{
-                url: selectedUrl,
+                
                 backdrop: true,
                 playsInline: true,
                 autoPlayback: true,

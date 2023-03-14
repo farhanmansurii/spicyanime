@@ -2,11 +2,12 @@ import Artplayer from "artplayer";
 import Hls from "hls.js";
 import { useEffect, useRef } from "react";
 
-export default function Player({ option, getInstance, ...rest }) {
+export default function Player({ option,source, getInstance, ...rest }) {
   const artRef = useRef();
 
   useEffect(() => {
     const art = new Artplayer({
+      url:source,
       customType: {
         m3u8: function playM3u8(video, url, art) {
           if (Hls.isSupported()) {
@@ -36,7 +37,7 @@ export default function Player({ option, getInstance, ...rest }) {
         art.destroy(false);
       }
     };
-  }, []);
+  }, [source]);
 
   return <div ref={artRef} {...rest}></div>;
 }
