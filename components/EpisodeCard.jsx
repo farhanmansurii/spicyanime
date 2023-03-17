@@ -10,7 +10,7 @@ const EpisodeCard = ({ episode }) => {
         )}
         <div className="absolute bottom-0 left-0 group-hover:text-black w-full  h-full px-4 py-2 flex flex-col justify-end">
           <h3 className="text-lg font-semibold  ">Episode {episode.number}</h3>
-          <p className="text-sm  opacity-70">{episode.title}</p>
+          <p className="text-sm  opacity-70 line-clamp-3">{episode.title}</p>
         </div>
       </div>
       <img

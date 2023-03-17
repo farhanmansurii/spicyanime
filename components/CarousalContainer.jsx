@@ -8,6 +8,7 @@ export default function CarousalProducts(anime) {
           <Carousel
             wrapAround={true}
             autoplay={true}
+            autoplayInterval={8000}
             defaultControlsConfig={{
               pagingDotsStyle: {
                 fill: "none",

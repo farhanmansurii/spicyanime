@@ -16,7 +16,7 @@ export default function OPlayer(props) {
         ui({
           theme: { primaryColor: "#e63946" },
           pictureInPicture: true,
-          slideToSeek: "always",
+          slideToSeek: "long-touch",
 
           forceLandscapeOnFullscreen: true,
         }),
