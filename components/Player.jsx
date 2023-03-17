@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import OPlayer from "./OPlayer";
 
 const Player = ({ sources, episode }) => {
+  console.log({ episode });
   const [selectedUrl, setSelectedUrl] = useState(
     sources.find((video) => video.quality === "default")?.url
   );
@@ -37,7 +38,11 @@ const Player = ({ sources, episode }) => {
       {selectedUrl && episode ? (
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
-            <OPlayer source={selectedUrl} className="aspect-video" />
+            <OPlayer
+              source={selectedUrl}
+              episode={episode}
+              className="aspect-video"
+            />
           </div>
         </div>
       ) : (

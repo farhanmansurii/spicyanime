@@ -4,8 +4,8 @@ import ui from "@oplayer/ui";
 import { useEffect, useRef } from "react";
 
 export default function OPlayer(props) {
-  const { source } = props;
-
+  const { source, episode } = props;
+  console.log(episode);
   const playerContainerRef = useRef();
   const playerRef = useRef();
 
@@ -17,7 +17,8 @@ export default function OPlayer(props) {
           theme: { primaryColor: "#e63946" },
           pictureInPicture: true,
           slideToSeek: "long-touch",
-
+          controlBar: { back: "always" }, // | { back:  'always' | 'fullscreen' } // appbar
+          topSetting: true,
           forceLandscapeOnFullscreen: true,
         }),
         hls(),
@@ -28,10 +29,12 @@ export default function OPlayer(props) {
   useEffect(() => {
     if (source) {
       playerRef.current.changeSource({
+        title: `E${episode?.number} ${episode?.title}`,
         src: source,
+        poster: episode?.image,
       });
     }
-  }, [source]);
+  }, [source, episode]);
 
   return (
     <div>

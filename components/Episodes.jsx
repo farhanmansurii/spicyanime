@@ -133,7 +133,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
         <div className="flex items-center  flex-col">
           <Player
             sources={episode.sources}
-            episode={episode}
+            episode={currentEpisode}
             key={episode.id}
           />
         </div>
