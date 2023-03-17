@@ -29,9 +29,12 @@ export default function OPlayer(props) {
   useEffect(() => {
     if (source) {
       playerRef.current.changeSource({
-        title: `E${episode?.number} ${episode?.title}`,
+        title:
+          episode.title !== "Full" &&
+          `Episode ${episode?.number}  ${episode?.title}`,
+
         src: source,
-        poster: episode?.image,
+        poster: episode.title !== "Full" && episode?.image,
       });
     }
   }, [source, episode]);
