@@ -1,8 +1,6 @@
 import Hls from "hls.js";
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import OPlayer from "./OPlayer";
-const ArtPlayer = dynamic(() => import("./OPlayer"), { ssr: false });
 
 const Player = ({ sources, episode }) => {
   const [selectedUrl, setSelectedUrl] = useState(
