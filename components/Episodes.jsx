@@ -134,6 +134,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
           <Player
             sources={episode.sources}
             episode={currentEpisode}
+            handleNextEpisode={handleNextEpisode}
             key={episode.id}
           />
         </div>

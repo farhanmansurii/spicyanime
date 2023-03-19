@@ -2,7 +2,7 @@ import Hls from "hls.js";
 import { useCallback, useEffect, useState } from "react";
 import OPlayer from "./OPlayer";
 
-const Player = ({ sources, episode }) => {
+const Player = ({ sources, episode, handleNextEpisode }) => {
   console.log({ episode });
   const [selectedUrl, setSelectedUrl] = useState(
     sources.find((video) => video.quality === "default")?.url
@@ -39,9 +39,12 @@ const Player = ({ sources, episode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <OPlayer
-              source={selectedUrl}
+              source={
+                `https://cors.dekianime.site/${selectedUrl}` || selectedUrl
+              }
               episode={episode}
-              className="aspect-video"
+              handleNextEpisode={handleNextEpisode}
+              className="aspect-video rounded-lg"
             />
           </div>
         </div>
