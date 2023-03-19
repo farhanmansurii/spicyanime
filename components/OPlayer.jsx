@@ -4,7 +4,7 @@ import ui from "@oplayer/ui";
 import { useEffect, useRef } from "react";
 
 export default function OPlayer(props) {
-  const { source, episode } = props;
+  const { source, episode, handleNextEpisode } = props;
   console.log(episode);
   const playerContainerRef = useRef();
   const playerRef = useRef();
@@ -14,8 +14,24 @@ export default function OPlayer(props) {
     playerRef.current = Player.make(playerContainerRef.current)
       .use([
         ui({
-          theme: { primaryColor: "#e63946" },
+          theme: { primaryColor: "#e63946", accent: "#e63946" },
           pictureInPicture: true,
+          menu: [
+            {
+              name: "Next",
+              icon: ` <svg
+      viewBox="0 0 24 24"
+      fill="primaryColor"
+   classname='w-6 h-6'
+    >
+      <path d="M12 2A10 10 0 002 12a10 10 0 0010 10 10 10 0 0010-10A10 10 0 0012 2M8 8l5 4-5 4m6-8h2v8h-2" />
+    </svg>`,
+              onClick: () => {
+                handleNextEpisode(episode.id);
+                console.log(episode.id);
+              },
+            },
+          ],
           slideToSeek: "long-touch",
           controlBar: { back: "always" }, // | { back:  'always' | 'fullscreen' } // appbar
           topSetting: true,
@@ -41,7 +57,7 @@ export default function OPlayer(props) {
 
   return (
     <div>
-      <div className="w-full h-full p-0 m-0" ref={playerContainerRef} />
+      <div className="w-full aspect-video  p-0 m-0 " ref={playerContainerRef} />
     </div>
   );
 }
