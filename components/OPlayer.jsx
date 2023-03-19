@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 
 export default function OPlayer(props) {
   const { source, episode, handleNextEpisode } = props;
-  console.log(episode);
   const playerContainerRef = useRef();
   const playerRef = useRef();
 
@@ -14,8 +13,9 @@ export default function OPlayer(props) {
     playerRef.current = Player.make(playerContainerRef.current)
       .use([
         ui({
-          theme: { primaryColor: "#e63946", secondaryColor: "#e63946" },
+          theme: { primaryColor: "#e63946" },
           pictureInPicture: true,
+
           menu: [
             {
               name: "Next",
@@ -31,6 +31,7 @@ export default function OPlayer(props) {
               },
             },
           ],
+
           slideToSeek: "long-touch",
           controlBar: { back: "always" }, // | { back:  'always' | 'fullscreen' } // appbar
           topSetting: true,
@@ -52,6 +53,8 @@ export default function OPlayer(props) {
         poster: episode.title !== "Full" && episode?.image,
       });
     }
+
+    // listen
   }, [source, episode]);
 
   return (

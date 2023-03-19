@@ -38,9 +38,7 @@ const Player = ({ sources, episode, handleNextEpisode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <OPlayer
-              source={
-                `https://proxy.vnxservers.com/${selectedUrl}` || selectedUrl
-              }
+              source={selectedUrl}
               episode={episode}
               handleNextEpisode={handleNextEpisode}
               className="aspect-video "
