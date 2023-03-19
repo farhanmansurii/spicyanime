@@ -105,7 +105,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
           e.episode.number !== currentEpisode?.number && (
             <div
               onClick={() => handleClickEpisode(e.episode)}
-              className="bg-[#e63946] border-4 border-black/50 text-black w-fit px-3  py-2 rounded-xl flex"
+              className=" border-black/50 text-black w-fit px-3  py-2 rounded-xl flex"
             >
               Continue E{e.episode.number} {e.episode.title} ?
             </div>

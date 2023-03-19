@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from "react";
 import OPlayer from "./OPlayer";
 
 const Player = ({ sources, episode, handleNextEpisode }) => {
-  console.log({ episode });
   const [selectedUrl, setSelectedUrl] = useState(
     sources.find((video) => video.quality === "default")?.url
   );
@@ -40,11 +39,11 @@ const Player = ({ sources, episode, handleNextEpisode }) => {
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <OPlayer
               source={
-                `https://cors.dekianime.site/${selectedUrl}` || selectedUrl
+                `https://proxy.vnxservers.com/${selectedUrl}` || selectedUrl
               }
               episode={episode}
               handleNextEpisode={handleNextEpisode}
-              className="aspect-video rounded-lg"
+              className="aspect-video "
             />
           </div>
         </div>

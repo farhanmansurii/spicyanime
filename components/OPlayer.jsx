@@ -14,7 +14,7 @@ export default function OPlayer(props) {
     playerRef.current = Player.make(playerContainerRef.current)
       .use([
         ui({
-          theme: { primaryColor: "#e63946", accent: "#e63946" },
+          theme: { primaryColor: "#e63946", secondaryColor: "#e63946" },
           pictureInPicture: true,
           menu: [
             {
@@ -28,7 +28,6 @@ export default function OPlayer(props) {
     </svg>`,
               onClick: () => {
                 handleNextEpisode(episode.id);
-                console.log(episode.id);
               },
             },
           ],
