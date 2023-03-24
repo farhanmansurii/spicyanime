@@ -29,7 +29,9 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   };
   useEffect(() => {
     const fetchEpisode = async () => {
-      try {
+      try
+      {
+
         const response = await axios.get(
           `https://spicyapi.vercel.app/meta/anilist/watch/${selectedEpisode}`
         );
@@ -105,7 +107,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
           e.episode.number !== currentEpisode?.number && (
             <div
               onClick={() => handleClickEpisode(e.episode)}
-              className=" border-black/50 text-black w-fit px-3  py-2 rounded-xl flex"
+              className=" border-black/50 text-black bg-[#e63946] w-fit px-3  py-2 rounded-xl flex"
             >
               Continue E{e.episode.number} {e.episode.title} ?
             </div>
