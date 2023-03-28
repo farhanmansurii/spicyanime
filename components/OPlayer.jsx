@@ -146,10 +146,11 @@ export default function OPlayer(props) {
             }
           ],
 
-          slideToSeek: "long-touch",
+          slideToSeek: "always",
           controlBar: { back: "always" }, // | { back:  'always' | 'fullscreen' } // appbar
           topSetting: true,
           forceLandscapeOnFullscreen: true,
+
         }),
         hls(),
       ])
