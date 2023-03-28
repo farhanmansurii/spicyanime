@@ -8,7 +8,7 @@ const Player = ({ sources, episode, handleNextEpisode }) => {
   );
   const [playedPercent, setPlayedPercent] = useState(0);
   const [player, setPlayer] = useState(null);
-
+  const [proxy, setProxy] = useState(true)
   const handleQualityChange = useCallback((url) => {
     setSelectedUrl(url);
   }, []);
@@ -23,8 +23,10 @@ const Player = ({ sources, episode, handleNextEpisode }) => {
   }, []);
 
   useEffect(() => {
-    if (player) {
-      if (selectedUrl.endsWith(".m3u8")) {
+    if (player)
+    {
+      if (selectedUrl.endsWith(".m3u8"))
+      {
         const hls = new Hls();
         hls.loadSource(selectedUrl);
         hls.attachMedia(player.getInternalPlayer());
@@ -38,12 +40,13 @@ const Player = ({ sources, episode, handleNextEpisode }) => {
         <div className="justify-center flex ">
           <div className="w-full h-full   lg:w-[720px] aspect-video ">
             <OPlayer
-              source={selectedUrl}
+              source={proxy ? `https://cors.anime.net.in/${selectedUrl}` : selectedUrl}
               episode={episode}
               handleNextEpisode={handleNextEpisode}
               className="aspect-video "
             />
           </div>
+
         </div>
       ) : (
         <div>Loading</div>
@@ -55,6 +58,7 @@ const Player = ({ sources, episode, handleNextEpisode }) => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
+          onClick={() => setProxy(!proxy)}
           className="w-6 h-6"
         >
           <path
