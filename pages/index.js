@@ -94,10 +94,6 @@ function Anime() {
               </div>
             )}
               <Row typeOfAnime={action?.results} text="Trending Anime" />
-              <div className="bg-yellow-500 text-white">
-
-                {JSON.stringify(savedAnime)}
-              </div>
             <RecentEpisodeRow recentlyreleased={recentlyreleased} />
             <Row typeOfAnime={popular?.results} text="Popular Anime" />
           </div>
