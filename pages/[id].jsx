@@ -38,7 +38,6 @@ export default function AnimeDetails(deets, animeId) {
         }
 
       </div>
-      { }
       {!notreleasedyet ? (
         <div className="my-4 w-11/12 mx-auto">
           <Episodes animeId={deets.animeId} type={deets.deets.type} totalEpisodes={deets.deets?.totalEpisodes} />
