@@ -2,6 +2,8 @@ import Animedetails from "@/components/Animedetails";
 import Episodes from "@/components/Episodes";
 import Navbar from "@/components/Navbar";
 import Row from "@/components/Row";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export async function getServerSideProps(context) {
   const animeId = context.query.id;
@@ -19,18 +21,20 @@ export async function getServerSideProps(context) {
 function filterRelationType(items) {
   return items?.filter((item) => item.type === "MOVIE" || item.type === "TV");
 }
-export default function AnimeDetails(deets) {
-  console.log(deets)
+export default function AnimeDetails(deets, animeId) {
+
+
+
   const related = filterRelationType(deets.deets.relations);
 
   const notreleasedyet = deets.deets.status === "Not yet aired" ? true : false;
   return (
     <div className="pb-[7rem]">
-      <Navbar />
+      <Navbar deets={deets} />
       <div className=" flex-column  ">
         {deets.deets.title ?
           <Animedetails deets={deets.deets} />
-          :  <div className=" h-[200px] my-10 text-3xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">{deets.deets.message}</div>
+          : <div className=" h-[200px] my-10 text-3xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">{deets.deets.message}</div>
         }
 
       </div>

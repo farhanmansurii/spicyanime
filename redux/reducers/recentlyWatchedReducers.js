@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  savedAnime: []
 };
 
 const recentlyWatchedSlice = createSlice({
@@ -59,6 +60,6 @@ const recentlyWatchedSlice = createSlice({
   },
 });
 
-export const { addEpisode, deleteEpisode, updateRecentlyWatched } =
+export const { addEpisode, deleteEpisode, updateRecentlyWatched, updateSavedEpisode } =
   recentlyWatchedSlice.actions;
 export default recentlyWatchedSlice.reducer;

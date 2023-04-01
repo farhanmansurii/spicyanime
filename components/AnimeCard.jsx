@@ -1,4 +1,5 @@
-function AnimeCard({ animeImg, title, releaseDate, relationType, type }) {
+function AnimeCard(props) {
+  const { animeImg, title, releaseDate, relationType, type } = props
   return (
     <div class="relative w-32 h-52 lg:w-36 lg:h-60  duration-100  overflow-hidden  rounded-lg">
       <img class="object-cover w-full h-full" src={animeImg} alt={title} />

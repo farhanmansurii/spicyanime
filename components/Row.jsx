@@ -10,7 +10,7 @@ const Row = ({ typeOfAnime, text }) => {
             <AnimeCard
               key={e.id}
               animeImg={e.image || e.coverImage.large}
-              title={e.title.english || e.title.userPreferred}
+              title={e.title.english || e.title.userPreferred || e.title}
               id={e.id}
               type={e.type}
               relationType={e.relationType}
