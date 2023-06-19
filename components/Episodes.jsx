@@ -77,7 +77,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
         <Spinner color="#e63946" />
       </div>
     );
-  const episodes = data.flatMap((page) => page);
+  const episodes = data.flatMap((page) => page).reverse();
   if (!currentEpisode && data.length > 0 && data[0].length > 0) {
     setCurrentEpisode(data[0][0]);
     setSelectedEpisode(data[0][0].id);
