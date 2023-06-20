@@ -77,24 +77,42 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
         <Spinner color="#e63946" />
       </div>
     );
+
+
  const episodes = data.flatMap((page) => page).reverse();
 
+function ifExists(animeId){
 
-if (continueWatching.length > 0) {
-  const recentlyWatchedEpisode = continueWatching.find((item) => item.animeId === animeId);
-  if (recentlyWatchedEpisode) {
-    const { episode } = recentlyWatchedEpisode;
-    setCurrentEpisode(episode);
-    setSelectedEpisode(episode.id);
-  } else if (!currentEpisode && episodes.length > 0) {
+  for (let i = 0; i < continueWatching.length; i++) {
+   if(continueWatching[i].animeId===animeId) return true
+   return false
+    
+  }
+}
+
+
+function takingAnimeId(animeId) {
+  for (let i = 0; i < continueWatching.length; i++) {
+    if (continueWatching[i].animeId === animeId) {
+      return continueWatching[i];
+    }
+  }
+}
+
+const foundAnime = takingAnimeId(animeId);
+if (!currentEpisode && episodes.length > 0) {
+  if (ifExists(animeId)) {
+    console.log('exists');
+    setCurrentEpisode(foundAnime.episode);
+    setSelectedEpisode(foundAnime.episode.id);
+  } else {
+    console.log('does not exist');
     setCurrentEpisode(episodes[0]);
     setSelectedEpisode(episodes[0].id);
   }
-} else if (!currentEpisode && episodes.length > 0) {
-  setCurrentEpisode(episodes[0]);
-  setSelectedEpisode(episodes[0].id);
 }
 
+ 
 
 
   const visibleEpisodes = episodes.slice(start - 1, end);
