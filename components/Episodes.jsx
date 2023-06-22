@@ -146,38 +146,38 @@ if (!currentEpisode && episodes.length > 0) {
             </div>
           )
       )}
-      {selectedEpisode && type === "TV" || type==="ONA" && (
-        <div className=" text-left flex gap-3  justify-between lg:text-3xl my-2 ">
-          <div className=" inline line-clamp-2 my-auto gap-2 flex-nowrap  ">
-            <span className="text-[#e63946] inline-flex flex-wrap  font-semibold">
-              Now Playing E{currentEpisode.number}
-            </span>{" "}
-            {currentEpisode.title}
-          </div>
-          {currentEpisode.number < episodes.length && (
-            <div
-              className="bg-[#e63946] border-4 border-black/50 text-black p-2 rounded-full "
-              onClick={() => handleNextEpisode(episode)}
-            >
-              <MdOutlineNavigateNext className="h-6 lg:h-8 w-6 lg:w-8" />
-            </div>
-          )}
-        </div>
-      )}
-      {episode ? (
-        <div className="flex items-center  flex-col">
-          <Player
-            sources={episode.sources}
-            episode={currentEpisode}
-            handleNextEpisode={handleNextEpisode}
-            key={episode.id}
-          />
-        </div>
-      ) : (
-        <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-          <Spinner color="#e63946" />
-        </div>
-      )}
+     {(type === "TV" || type === "ONA") && selectedEpisode && (
+  <div className="text-left flex gap-3 justify-between lg:text-3xl my-2">
+    <div className="inline line-clamp-2 my-auto gap-2 flex-nowrap">
+      <span className="text-[#e63946] inline-flex flex-wrap font-semibold">
+        Now Playing E{currentEpisode.number}
+      </span>{" "}
+      {currentEpisode.title}
+    </div>
+    {currentEpisode.number < episodes.length && (
+      <div
+        className="bg-[#e63946] border-4 border-black/50 text-black p-2 rounded-full"
+        onClick={() => handleNextEpisode(episode)}
+      >
+        <MdOutlineNavigateNext className="h-6 lg:h-8 w-6 lg:w-8" />
+      </div>
+    )}
+  </div>
+)}
+{episode ? (
+  <div className="flex items-center flex-col">
+    <Player
+      sources={episode.sources}
+      episode={currentEpisode}
+      handleNextEpisode={handleNextEpisode}
+      key={episode.id}
+    />
+  </div>
+) : (
+  <div className="h-[200px] w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
+    <Spinner color="#e63946" />
+  </div>
+)}
       {episodes.length >= 27 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
