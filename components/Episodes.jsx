@@ -146,7 +146,7 @@ if (!currentEpisode && episodes.length > 0) {
             </div>
           )
       )}
-      {selectedEpisode && type === "TV" && (
+      {selectedEpisode && type === "TV" || type==="ONA" && (
         <div className=" text-left flex gap-3  justify-between lg:text-3xl my-2 ">
           <div className=" inline line-clamp-2 my-auto gap-2 flex-nowrap  ">
             <span className="text-[#e63946] inline-flex flex-wrap  font-semibold">
