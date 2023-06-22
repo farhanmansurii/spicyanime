@@ -212,18 +212,17 @@ if (!currentEpisode && episodes.length > 0) {
       )}
 
       <div className="flex flex-row overflow-x-auto w-full scrollbar-hide">
-        {visibleEpisodes.map(
-          (episode) =>
-            type === "TV" && (
-              <div
-                key={episode.id}
-                onClick={() => handleClickEpisode(episode)}
-                className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12  duration-100"
-              >
-                <EpisodeCard episode={episode} title={episode.title} />{" "}
-              </div>
-            )
-        )}
+        {visibleEpisodes.map((episode) => (
+  (type === "TV" || type === "ONA") && (
+    <div
+      key={episode.id}
+      onClick={() => handleClickEpisode(episode)}
+      className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12 duration-100"
+    >
+      <EpisodeCard episode={episode} title={episode.title} />
+    </div>
+  )
+))}
       </div>
     </div>
   );
