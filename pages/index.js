@@ -50,7 +50,7 @@ function Anime() {
     fetcher
   );
   const { data: recentlyreleased } = useSWR(
-    "https://spicyapi.vercel.app/meta/anilist/recent-episodes?page=1&perPage=10",
+    "https://spicyapi.vercel.app/meta/anilist/recent-episodes?page=1&perPage=20",
     fetcher
   );
   const dispatch = useDispatch();
@@ -79,16 +79,17 @@ function Anime() {
                 <h2 className="text-2xl lg:text-3xl my-2 mx-2 ">
                     {session?.status === 'authenticated' ? `Continue Watching for ${session?.data?.user?.name.split(" ")[0]}` : "Continue Watching"}
                 </h2>
-                  <div className="flex flex-row  scrollbar-hide">
+                  <div className="flex flex-col  overflow-x-scroll p-2 scrollbar-hide mx-auto ">
+                    <div className="flex gap-1 flex-nowrap ">
                   {recentlyWatched?.map((episode) => (
                     <>
                       <Link
                         href={`/${episode.episode.animeId}`}
                         key={episode.episode.animeId}
-                        className="flex-shrink-0 flex-col items-center mx-1 aspect-video   duration-100"
+                        className="flex-col items-center  aspect-video   duration-100"
                       >
-                        <div key={episode.episode.id} className="episode-card flex-none relative w-64 h-36 rounded-lg   ">
-                          <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/20 hover:bg-[#111111]/50"></div>
+                        <div key={episode.id} className="episode-card flex-none relative w-64 h-40 rounded-lg   ">
+                          <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/60"></div>
                           <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
                             <img className="w-full h-full object-cover rounded-lg" src={episode.episode.image} alt={`Episode ${episode.episode.episode}`} />
                           </div>
@@ -107,7 +108,7 @@ function Anime() {
                       </Link>
                     </>
                   ))}
-                </div>
+                    </div></div>
               </div>
             )}
               <Row typeOfAnime={action?.results} text="Trending Anime" />

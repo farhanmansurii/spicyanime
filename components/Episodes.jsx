@@ -218,14 +218,15 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
         )
       )}
 
-      <div className="flex flex-row overflow-x-auto w-full scrollbar-hide">
+      <div className="flex flex-col  overflow-x-scroll p-2 scrollbar-hide mx-auto ">
+        <div className="flex gap-2 flex-nowrap ">
         {visibleEpisodes.map((ep) => (
           (type === "TV" || type === "ONA") && (
 
             <div
               key={ep.id}
               onClick={() => handleClickEpisode(ep)}
-              className={`flex-shrink-0 rounded flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12 duration-100 ${episode && (ep.id === episode.id ? 'border-2 border-red-500' : '')
+              className={`rounded-lg ${selectedEpisode && (ep.id === selectedEpisode ? 'border-2 border-red-500' : 'border-2 border-transparent')
                 }`}
             >
               <EpisodeCard episode={ep} title={ep.title} />
@@ -233,7 +234,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
 
           )
         ))}
-      </div>
+        </div></div>
     </div>
   );
 }
