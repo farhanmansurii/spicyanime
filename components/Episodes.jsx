@@ -225,7 +225,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
             <div
               key={ep.id}
               onClick={() => handleClickEpisode(ep)}
-              className={`flex-shrink-0 rounded flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12 duration-100 
+              className={`flex-shrink-0 rounded flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12 duration-100 ${episode && (ep.id === episode.id ? 'border-2 border-red-500' : '')
                 }`}
             >
               <EpisodeCard episode={ep} title={ep.title} />
