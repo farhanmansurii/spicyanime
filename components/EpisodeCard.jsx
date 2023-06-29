@@ -1,31 +1,22 @@
 const EpisodeCard = ({ episode }) => {
-  const imageUrl = episode.image;
+
 
   return (
-    <div className="relative group overflow-hidden cursor-pointer transition-opacity duration-200 rounded-lg w-full h-0 pb-[56.25%] aspect-w-16 aspect-h-9">
-      <div className="absolute inset-0 z-10 transition-all duration-300  group-hover:opacity-100">
-        <div className="absolute inset-0 rounded-lg bg-gradient-to-t group-hover:from-[#e63946] from-black to-transparent" />
-        {episode.isFiller && (
-          <div className="px-4 py-2 text-center bg-[#e63946]">filler</div>
-        )}
-        <div className="absolute bottom-0 left-0 group-hover:text-black w-full  h-full px-4 py-2 flex flex-col justify-end">
-          <h3 className="text-lg font-semibold  ">Episode {episode.number}</h3>
-          <p className="text-sm  opacity-70 line-clamp-3">{episode.title}</p>
-        </div>
+    <div key={episode.id} className="episode-card flex-none relative w-full h-44 rounded-lg   ">
+      <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/40 hover:bg-[#111111]/50"></div>
+      <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
+        <img className="w-full h-full object-cover rounded-lg" src={episode.image} alt={`Episode ${episode.episode}`} />
       </div>
-      <img
-        className="object-cover object-center transition-all duration-100 transform group-hover:scale-[102%]"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
-        src={imageUrl}
-        alt={`Episode ${episode.number}`}
-      />
+
+
+
+
+      <div className="episode-info absolute text-left bottom-2 w-full px-4 ">
+        {/* <div className="bg-[#e63946] w-fit px-4 py-1 rounded text-xs">filler</div> */}
+
+        <h3 className=" text-md lg:text-lg  line-clamp-1">E{episode.number} : {episode.title}</h3>
+        <h3 className=" text-xs lg:text-md opacity-70 line-clamp-2">{episode.description}</h3>
+      </div>
     </div>
   );
 };

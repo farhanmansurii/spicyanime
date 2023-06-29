@@ -35,7 +35,7 @@ function Anime() {
   useEffect(() => {
     login()
     onSnapshot(doc(db, 'users', `${session?.data?.user?.email}`), (doc) => {
-      console.log(doc.data()?.savedAnime);
+      console.log(doc.data()?.savedAnime,);
       dispatch(syncAnime(doc.data()?.savedAnime));
     })
 
@@ -55,6 +55,7 @@ function Anime() {
   );
   const dispatch = useDispatch();
   const recentlyWatched = useSelector((state) => state.recentlyWatched.items);
+  console.log(recentlyWatched)
   const savedAnime = useSelector((state) => state.recentlyWatched.savedAnime);
   useEffect(() => {
     const storedState = localStorage.getItem("tvShowsState");
@@ -78,15 +79,31 @@ function Anime() {
                 <h2 className="text-2xl lg:text-3xl my-2 mx-2 ">
                     {session?.status === 'authenticated' ? `Continue Watching for ${session?.data?.user?.name.split(" ")[0]}` : "Continue Watching"}
                 </h2>
-                <div className="flex flex-row overflow-x-auto scrollbar-hide">
+                  <div className="flex flex-row  scrollbar-hide">
                   {recentlyWatched?.map((episode) => (
                     <>
                       <Link
-                        href={`/${episode.animeId}`}
-                        key={episode.animeId}
-                        className="flex-shrink-0 flex-col items-center mx-1 aspect-video  h-[113px] w-[200px] lg:h-full lg:w-1/4 xl:w-3/12  duration-100"
+                        href={`/${episode.episode.animeId}`}
+                        key={episode.episode.animeId}
+                        className="flex-shrink-0 flex-col items-center mx-1 aspect-video   duration-100"
                       >
-                        <EpisodeCard episode={episode.episode} />
+                        <div key={episode.episode.id} className="episode-card flex-none relative w-full h-36 rounded-lg   ">
+                          <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/20 hover:bg-[#111111]/50"></div>
+                          <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
+                            <img className="w-full h-full object-cover rounded-lg" src={episode.episode.image} alt={`Episode ${episode.episode.episode}`} />
+                          </div>
+
+
+
+
+                          <div className="episode-info absolute text-left bottom-2 w-full px-4 ">
+                            {/* <div className="bg-[#e63946] w-fit px-4 py-1 rounded text-xs">filler</div> */}
+
+                            <h3 className=" text-md lg:text-lg  line-clamp-1">E{episode.episode.number} : {episode.episode.title}</h3>
+                            <h3 className=" text-xs lg:text-md opacity-70 line-clamp-2">{episode.episode.description}</h3>
+                          </div>
+                        </div>
+
                       </Link>
                     </>
                   ))}

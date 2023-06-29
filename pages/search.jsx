@@ -27,17 +27,14 @@ const SearchPage = () => {
           <input
             type="text"
             placeholder="
-            
             Search for any Anime TV / Movie"
-            className=" placeholder:text-[black] bg-[#e63946]  text-black rounded-full  border-4 border-black/50 px-4 py-4 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary "
+            className="  bg-[#e63946]/20 placeholder:text-[#E4E6C3] placeholder:font-light rounded-lg px-4 py-4 w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary "
             input={val}
             onChange={(e) => setval(e.target.value)}
           />
         </div>
-        {
-          val &&
-          <div className="w-11/12 mx-auto text-4xl my-4 px-4 ">Search Results for : {val}</div>
-        }
+
+
         <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
           {val === "" ? (
             ""

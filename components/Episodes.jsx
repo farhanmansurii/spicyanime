@@ -7,11 +7,14 @@ import Spinner from "react-spinner-material";
 import useSWRInfinite from "swr/infinite";
 import EpisodeCard from "./EpisodeCard";
 import Player from "./Player";
+import OPlayer from "./OPlayer";
 const fetcher = async (url) => {
-  try {
+  try
+  {
     const response = await axios.get(url);
     return response.data;
-  } catch (error) {
+  } catch (error)
+  {
     throw new Error("Failed to fetch data");
   }
 };
@@ -36,12 +39,14 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
           `https://spicyapi.vercel.app/meta/anilist/watch/${selectedEpisode}`
         );
         setEpisode(response.data);
-      } catch (error) {
+      } catch (error)
+      {
         setEpisode(null);
       }
     };
 
-    if (selectedEpisode) {
+    if (selectedEpisode)
+    {
       fetchEpisode();
     }
   }, [selectedEpisode]);
@@ -52,10 +57,12 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   }, [animeId]);
 
   const getKey = (pageIndex, previousPageData) => {
-    if (pageIndex === 0) {
+    if (pageIndex === 0)
+    {
       return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime&fetchFiller=true`;
     }
-    if (!previousPageData.length) {
+    if (!previousPageData.length)
+    {
       return null;
     }
     return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime&fetchFiller=true`;
@@ -68,7 +75,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   if (error)
     return (
       <div className=" h-[200px] text-2xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        {error.message}
+        {error.message} 
       </div>
     );
   if (!data)
@@ -79,45 +86,52 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
     );
 
 
- const episodes = data.flatMap((page) => page).reverse();
+  const episodes = data.flatMap((page) => page).reverse();
 
-function ifExists(animeId){
+  function ifExists(animeId) {
 
-  for (let i = 0; i < continueWatching.length; i++) {
-   if(continueWatching[i].animeId===animeId) return true
-   return false
-    
-  }
-}
+    for (let i = 0; i < continueWatching.length; i++)
+    {
+      if (continueWatching[i].animeId === animeId) return true
+      return false
 
-
-function takingAnimeId(animeId) {
-  for (let i = 0; i < continueWatching.length; i++) {
-    if (continueWatching[i].animeId === animeId) {
-      return continueWatching[i];
     }
   }
-}
 
-const foundAnime = takingAnimeId(animeId);
-if (!currentEpisode && episodes.length > 0) {
-  if (ifExists(animeId)) {
-    console.log('exists');
-    setCurrentEpisode(foundAnime.episode);
-    setSelectedEpisode(foundAnime.episode.id);
-  } else {
-    console.log('does not exist');
-    setCurrentEpisode(episodes[0]);
-    setSelectedEpisode(episodes[0].id);
+
+  function takingAnimeId(animeId) {
+    for (let i = 0; i < continueWatching.length; i++)
+    {
+      if (continueWatching[i].animeId === animeId)
+      {
+        return continueWatching[i];
+      }
+    }
   }
-}
 
- 
+  const foundAnime = takingAnimeId(animeId);
+  if (!currentEpisode && episodes.length > 0)
+  {
+    if (ifExists(animeId))
+    {
+      console.log('exists');
+      setCurrentEpisode(foundAnime.episode);
+      setSelectedEpisode(foundAnime.episode.id);
+    } else
+    {
+      console.log('does not exist');
+      setCurrentEpisode(episodes[0]);
+      setSelectedEpisode(episodes[0].id);
+    }
+  }
+
+
 
 
   const visibleEpisodes = episodes.slice(start - 1, end);
   const options = [];
-  for (let i = 0; i < episodes.length; i += 26) {
+  for (let i = 0; i < episodes.length; i += 26)
+  {
     options.push(`${i + 1} - ${Math.min(i + 26, episodes.length)}`);
   }
 
@@ -146,38 +160,31 @@ if (!currentEpisode && episodes.length > 0) {
             </div>
           )
       )}
-     {(type === "TV" || type === "ONA") && selectedEpisode && (
-  <div className="text-left flex gap-3 justify-between lg:text-3xl my-2">
-    <div className="inline line-clamp-2 my-auto gap-2 flex-nowrap">
-      <span className="text-[#e63946] inline-flex flex-wrap font-semibold">
-        Now Playing E{currentEpisode.number}
-      </span>{" "}
-      {currentEpisode.title}
-    </div>
-    {currentEpisode.number < episodes.length && (
-      <div
-        className="bg-[#e63946] border-4 border-black/50 text-black p-2 rounded-full"
-        onClick={() => handleNextEpisode(episode)}
-      >
-        <MdOutlineNavigateNext className="h-6 lg:h-8 w-6 lg:w-8" />
-      </div>
-    )}
-  </div>
-)}
-{episode ? (
-  <div className="flex items-center flex-col">
-    <Player
-      sources={episode.sources}
-      episode={currentEpisode}
-      handleNextEpisode={handleNextEpisode}
-      key={episode.id}
-    />
-  </div>
-) : (
-  <div className="h-[200px] w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-    <Spinner color="#e63946" />
-  </div>
-)}
+      {(type === "TV" || type === "ONA") && selectedEpisode && (
+        <div className="text-left flex gap-3 justify-between lg:text-3xl my-2">
+          <div className="inline line-clamp-2 my-auto gap-2 flex-nowrap">
+            <span className="text-[#e63946] inline-flex flex-wrap font-semibold">
+              Now Playing E{currentEpisode.number}
+            </span>{" "}
+            {currentEpisode.title}
+          </div>
+
+        </div>
+      )}
+      {episode ? (
+        <div className="flex items-center flex-col">
+          <OPlayer
+            sources={episode.sources}
+            episode={currentEpisode}
+            handleNextEpisode={handleNextEpisode}
+            key={episode.id}
+          />
+        </div>
+      ) : (
+        <div className="h-[200px] w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
+          <Spinner color="#e63946" />
+        </div>
+      )}
       {episodes.length >= 27 ? (
         <div className="my-4 w-[98%] mx-auto text-left text-xl">
           <label htmlFor="episodeRange" className="mr-2 font-semibold">
@@ -212,17 +219,20 @@ if (!currentEpisode && episodes.length > 0) {
       )}
 
       <div className="flex flex-row overflow-x-auto w-full scrollbar-hide">
-        {visibleEpisodes.map((episode) => (
-  (type === "TV" || type === "ONA") && (
-    <div
-      key={episode.id}
-      onClick={() => handleClickEpisode(episode)}
-      className="flex-shrink-0 flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12 duration-100"
-    >
-      <EpisodeCard episode={episode} title={episode.title} />
-    </div>
-  )
-))}
+        {visibleEpisodes.map((ep) => (
+          (type === "TV" || type === "ONA") && (
+
+            <div
+              key={ep.id}
+              onClick={() => handleClickEpisode(ep)}
+              className={`flex-shrink-0 rounded flex-col items-center mx-1 w-8/12 md:w-2/5 lg:w-1/4 xl:w-3/12 duration-100 
+                }`}
+            >
+              <EpisodeCard episode={ep} title={ep.title} />
+            </div>
+
+          )
+        ))}
       </div>
     </div>
   );
