@@ -87,7 +87,7 @@ function Anime() {
                         key={episode.episode.animeId}
                         className="flex-shrink-0 flex-col items-center mx-1 aspect-video   duration-100"
                       >
-                        <div key={episode.episode.id} className="episode-card flex-none relative w-full h-36 rounded-lg   ">
+                        <div key={episode.episode.id} className="episode-card flex-none relative w-64 h-36 rounded-lg   ">
                           <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/20 hover:bg-[#111111]/50"></div>
                           <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
                             <img className="w-full h-full object-cover rounded-lg" src={episode.episode.image} alt={`Episode ${episode.episode.episode}`} />

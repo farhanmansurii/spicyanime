@@ -2,8 +2,8 @@ const EpisodeCard = ({ episode }) => {
 
 
   return (
-    <div key={episode.id} className="episode-card flex-none relative w-full h-44 rounded-lg   ">
-      <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/40 hover:bg-[#111111]/50"></div>
+    <div key={episode.id} className="episode-card flex-none relative w-64 h-44 rounded-lg   ">
+      <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/50 hover:bg-[#111111]/50"></div>
       <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
         <img className="w-full h-full object-cover rounded-lg" src={episode.image} alt={`Episode ${episode.episode}`} />
       </div>
