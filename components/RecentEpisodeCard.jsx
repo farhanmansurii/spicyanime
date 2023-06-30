@@ -4,7 +4,7 @@ const EpisodeCard = ({ episode }) => {
 
 
 
-    <div key={episode.id} className="episode-card flex-none relative w-64 h-40 rounded-lg   ">
+    <div key={episode.id} className="episode-card flex-none relative w-[16rem] h-[20rem] rounded-lg   ">
 
       <div className="overlay absolute inset-0 bg-black opacity-50 rounded"></div>
       <div className="episode-img-container w-full h-full rounded overflow-hidden">

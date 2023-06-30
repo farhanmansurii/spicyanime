@@ -12,11 +12,12 @@ function AnimeCard(props) {
           {relationType ? (
             <div className="">{" • "}
               {relationType.replace(/_/g, " ")}</div>
-          ) : (
+          ) : (releaseDate ?
             <>
               {" • "}
               {releaseDate}
-            </>
+              </> :
+              ""
           )}
         </p>
 

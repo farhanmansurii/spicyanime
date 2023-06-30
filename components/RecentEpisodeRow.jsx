@@ -7,17 +7,17 @@ export default function RecentEpisodeRow({ recentlyreleased }) {
     <div className="w-11/12 gap mx-auto mb-10   ">
       <h2 className="text-2xl lg:text-3xl my-2 mx-2 ">Recently Released</h2>
       <div className="flex flex-col  overflow-x-scroll p-2 scrollbar-hide mx-auto ">
-        <div className="flex gap-2 flex-nowrap ">
+        <div className="flex gap-1 flex-nowrap ">
         {recentlyreleased?.results.map(
           (episode) =>
             episode.type === "TV" && (
               <Link
                 href={`/${episode.id}`}
                 key={episode.id}
-                className=" flex-col items-center aspect-video   duration-100"
+                className=" flex-col items-center   duration-100"
               >
                 <div key={episode.id}>
-                  <div key={episode.id} className="episode-card flex-none relative w-full aspect-video h-36 rounded-lg   ">
+                  <div key={episode.id} className="episode-card flex-none relative  aspect-video h-[10rem] w-[16rem] rounded-lg   ">
                     <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/50"></div>
                     <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
                       <img className="w-full h-full object-cover rounded-lg" src={episode.image} alt={`Episode ${episode.episode}`} />

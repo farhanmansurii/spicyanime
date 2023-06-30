@@ -1,10 +1,21 @@
 import Link from "next/link";
 import { BsFillPlayFill } from 'react-icons/bs'
 import {AiOutlinePlus} from 'react-icons/ai'
+import parse from 'html-react-parser';
 const CarousalCard = (props) => {
   return (
-    <div className="w-full relative  h-[250px] lg:h-[350px]  ">
+    <div className="w-full relative  h-[450px] lg:h-[500px]  ">
       <div className="absolute inset-0 bottom-0 bg-gradient-to-t from-[#0b090a] to-transparent" />
+      <div
+        style={{
+          backgroundImage: `url(${props.props.image})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          height: "full",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="h-full md:hidden"
+      />
       <div
         style={{
           backgroundImage: `url(${props.props.cover})`,
@@ -13,14 +24,14 @@ const CarousalCard = (props) => {
           height: "full",
           backgroundRepeat: "no-repeat",
         }}
-        className="h-full"
+        className="h-full hidden md:flex"
       />
-      <div className="z-50 flex lg:gap-3 flex-col absolute w-11/12 mx-auto justify-end uppercase inset-0">
-        <div className="mx-auto text-left text-3xl lg:text-5xl w-full capitalize">
+      <div className="z-50 flex lg:gap-2 flex-col absolute w-11/12 mx-auto justify-end uppercase inset-0">
+        <div className="mx-auto text-left text-4xl my-1 lg:text-5xl w-full capitalize">
           {props.props.title.english || props.props.title.userPreferred || ""}
         </div>
-        <div className="text-sm hidden opacity-50 lg:block capitalize lg:line-clamp-2 w-6/12">
-          {props.props.description}
+        <div className="text-sm  opacity-50 lg:block capitalize line-clamp-3 lg:line-clamp-4 w-10/12">
+          {parse(props.props.description)}
         </div>
         <div className="flex pt-3 gap-3">
 

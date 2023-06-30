@@ -219,14 +219,14 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
       )}
 
       <div className="flex flex-col  overflow-x-scroll p-2 scrollbar-hide mx-auto ">
-        <div className="flex gap-2 flex-nowrap ">
+        <div className="flex gap-1 flex-nowrap ">
         {visibleEpisodes.map((ep) => (
           (type === "TV" || type === "ONA") && (
 
             <div
               key={ep.id}
               onClick={() => handleClickEpisode(ep)}
-              className={`rounded-lg ${selectedEpisode && (ep.id === selectedEpisode ? 'border-2 border-red-500' : 'border-2 border-transparent')
+              className={`rounded-lg ${selectedEpisode && (ep.id === selectedEpisode ? 'border-2 border-red-500' : ' border-transparent')
                 }`}
             >
               <EpisodeCard episode={ep} title={ep.title} />
