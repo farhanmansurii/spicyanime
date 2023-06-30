@@ -100,7 +100,7 @@ function Anime() {
                           <div className="episode-info absolute text-left bottom-2 w-full px-4 ">
                             {/* <div className="bg-[#e63946] w-fit px-4 py-1 rounded text-xs">filler</div> */}
 
-                            <h3 className=" text-md lg:text-lg  line-clamp-1">E{episode.episode.number} : {episode.episode.title}</h3>
+                            <h3 className=" text-md lg:text-lg  line-clamp-1">{episode.episode.title ? 'E' : "Episode "}{episode.episode.number}  {episode.episode.title && ": " + episode.episode.title}</h3>
                             <h3 className=" text-xs lg:text-md opacity-70 line-clamp-2">{episode.episode.description}</h3>
                           </div>
                         </div>
