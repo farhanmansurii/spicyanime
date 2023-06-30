@@ -36,9 +36,9 @@ const CarousalCard = (props) => {
         <div className="flex pt-3 gap-3">
 
         <Link className="w-fit flex" href={`/${props.props.id}`}>
-          <span>  <BsFillPlayFill className=" text-black border-4 border-black/50 w-12 h-12 bg-[#e63946] p-2 rounded-full " /> </span> <span></span>
+            <span>  <BsFillPlayFill className=" text-black border-2 border-black/50 w-12 h-12 bg-[#e63946] p-2 rounded-full " /> </span> <span></span>
         </Link>
-          <span>  <AiOutlinePlus className=" bg-black border-4 border-[#e63946]/50 w-12 h-12 text-[#e63946] p-2 rounded-full " /> </span> <span></span>
+          <span>  <AiOutlinePlus className=" bg-black border-2 border-[#e63946]/50 w-12 h-12 text-[#e63946] p-2 rounded-full " /> </span> <span></span>
         </div>
 
 

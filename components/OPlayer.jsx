@@ -8,14 +8,16 @@ export default function OPlayer(props) {
 
   const playerRef = useRef();
   const poster = episode.image
-  const title = "E" + episode.number + " " + episode.title
+  const isFullTitle = episode.title !== null && episode.title !== "full";
+  const title = isFullTitle ? "E" + episode.number + " " + episode.title : '';
+
   useEffect(() => {
     // Create the player only once using the initial values
     if (!playerRef.current)
     {
       playerRef.current = Player.make('#oplayer', { poster, title }).use([ui({
         theme: {
-          primaryColor: "red",
+          primaryColor: "#e63946",
         }, preload: 'auto',
         pictureInPicture: true,
 
