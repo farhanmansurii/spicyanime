@@ -31,7 +31,7 @@ const CarousalCard = (props) => {
           {props.props.title.english || props.props.title.userPreferred || ""}
         </div>
         <div className="text-sm  opacity-50 lg:block capitalize line-clamp-3 lg:line-clamp-4 w-10/12">
-          {parse(props.props.description)}
+          {props.props.description && parse(props.props.description)}
         </div>
         <div className="flex pt-3 gap-3">
 

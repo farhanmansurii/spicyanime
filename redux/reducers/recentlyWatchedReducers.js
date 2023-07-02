@@ -18,10 +18,12 @@ const recentlyWatchedSlice = createSlice({
         (item) => item.animeId === animeId
       );
 
-      if (showIndex === -1) {
-        // TV show not found, add it to the beginning of the array
-        state.items.unshift({ animeId, episode });
-      } else {
+      if (showIndex === -1)
+      {
+        // Initialize watchTime to 0 when adding a new episode
+        state.items.unshift({ animeId, episode, watchTime: 0 });
+      } else
+      {
         // TV show already exists, update its episode if it's different
         if (state.items[showIndex].episode.id !== episode.id) {
           state.items[showIndex].episode = episode;
@@ -45,7 +47,9 @@ const recentlyWatchedSlice = createSlice({
         (item) => item.animeId === animeId
       );
 
-      if (showIndex !== -1) {
+      if (showIndex !== -1)
+      {
+        console.log('exists')
         // Remove the TV show from the array
         state.items.splice(showIndex, 1);
 
@@ -54,12 +58,22 @@ const recentlyWatchedSlice = createSlice({
       }
     },
 
+
     updateRecentlyWatched: (state, action) => {
-      return action.payload;
+      const { animeId, watchTime } = action.payload;
+
+      const showIndex = state.items.findIndex((item) => item.animeId === animeId);
+
+      if (showIndex !== -1)
+      {
+        // Update the watchTime property if the episode exists
+        state.items[showIndex].episode.watchTime = watchTime;
+        localStorage.setItem("tvShowsState", JSON.stringify(state));
+      }
     },
   },
 });
 
-export const { addEpisode, deleteEpisode, updateRecentlyWatched, updateSavedEpisode } =
+export const { addEpisode, updateWatchTime, deleteEpisode, updateRecentlyWatched, updateSavedEpisode } =
   recentlyWatchedSlice.actions;
 export default recentlyWatchedSlice.reducer;

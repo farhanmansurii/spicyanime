@@ -86,7 +86,8 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
     );
 
 
-  const episodes = data.flatMap((page) => page).reverse();
+  const episodes = data.flatMap((page) => page).sort((a, b) => a.number - b.number);
+
 
   function ifExists(animeId) {
 
@@ -178,6 +179,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
             episode={currentEpisode}
             handleNextEpisode={handleNextEpisode}
             key={episode.id}
+            animeId={animeId}
           />
         </div>
       ) : (

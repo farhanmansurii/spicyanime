@@ -89,10 +89,11 @@ function Anime() {
                         className="flex-col items-center  aspect-video   duration-100"
                       >
                         <div key={episode.id} className="episode-card flex-none relative w-64 h-40 rounded-lg   ">
-                          <div className="overlay absolute rounded-lg inset-0 bg-[#111111]/60"></div>
-                          <div className="episode-img-container rounded-lg w-full h-full overflow-hidden">
-                            <img className="w-full h-full object-cover rounded-lg" src={episode.episode.image} alt={`Episode ${episode.episode.episode}`} />
+                          <div className="overlay absolute rounded-t-lg inset-0 bg-[#111111]/60"></div>
+                          <div className="episode-img-container w-full h-full rounded-t-lg overflow-hidden">
+                            <img className="w-full h-full object-cover" src={episode.episode.image} alt={`Episode ${episode.episode.number}`} />
                           </div>
+                          <div style={{ borderBottomLeftRadius: '3rem', border: '2px solid #e63946', width: `${Math.round(episode.episode.watchTime)}%` }}></div>
 
 
 

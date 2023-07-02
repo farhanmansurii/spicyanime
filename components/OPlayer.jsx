@@ -1,16 +1,19 @@
+import { updateRecentlyWatched, updateWatchTime } from "@/redux/reducers/recentlyWatchedReducers";
 import Player from "@oplayer/core";
 import hls from "@oplayer/hls";
 import ui from "@oplayer/ui";
 import { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 
 export default function OPlayer(props) {
-  const { sources, episode, handleNextEpisode } = props;
-
+  const { sources, animeId, episode, handleNextEpisode } = props;
+  const watchTimeTimeoutRef = useRef();
+  console.log(episode.animeId)
   const playerRef = useRef();
   const poster = episode.image
   const isFullTitle = episode.title !== null && episode.title !== "full";
   const title = isFullTitle ? "E" + episode.number + " " + episode.title : '';
-
+  const dispatch = useDispatch()
   useEffect(() => {
     // Create the player only once using the initial values
     if (!playerRef.current)
@@ -68,6 +71,28 @@ export default function OPlayer(props) {
 
   }, []); // Empty dependency array ensures this effect runs only once on initial render
 
+  useEffect(() => {
+    const handleTimeUpdate = () => {
+      clearTimeout(watchTimeTimeoutRef.current); // Clear previous timeout (if any)
+
+      watchTimeTimeoutRef.current = setTimeout(() => {
+        const currentTime = playerRef.current.currentTime;
+        const totalTime = playerRef.current.duration;
+        const watchTimePercent = Math.floor((currentTime / totalTime) * 100);
+
+        // Dispatch the updateWatchTime action with the calculated watch time percentage
+        dispatch(updateRecentlyWatched({ animeId, watchTime: watchTimePercent }));
+      }, 3000); // Delay execution for 3 seconds
+    };
+
+    playerRef.current.on("timeupdate", handleTimeUpdate);
+
+    // Clean up the event listener and timeout on component unmount
+    return () => {
+      playerRef.current.off("timeupdate", handleTimeUpdate);
+      clearTimeout(watchTimeTimeoutRef.current);
+    };
+  }, [playerRef, dispatch, episode]);
 
 
   useEffect(() => {
