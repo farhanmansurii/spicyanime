@@ -82,7 +82,7 @@ export default function OPlayer(props) {
 
         // Dispatch the updateWatchTime action with the calculated watch time percentage
         dispatch(updateRecentlyWatched({ animeId, watchTime: watchTimePercent }));
-      }, 3000); // Delay execution for 3 seconds
+      }, 300); 
     };
 
     playerRef.current.on("timeupdate", handleTimeUpdate);
