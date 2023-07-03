@@ -11,7 +11,6 @@ export default function Navbar(props) {
     {
       if (savedAnime[i].id === (deets.animeId))
       {
-        console.log(deets.animeId)
         return true;
       }
     }
@@ -19,7 +18,7 @@ export default function Navbar(props) {
   }
 
   const isadded = (checkAnimeexists(savedAnime, deets.animeId));
-  console.log(isadded)
+
   const animeDetails = deets.deets
   const session = useSession()
   const animeRef = doc(db, 'users', `${session?.data?.user?.email}`);

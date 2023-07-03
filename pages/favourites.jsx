@@ -32,7 +32,7 @@ export default function savedAnime() {
   }, [session])
 
   const savedAnime = useSelector((state) => state.syncAnime.savedAnime);
-  console.log(savedAnime)
+
 
   return (
     <div className='w-11/12 mx-auto'>

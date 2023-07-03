@@ -4,7 +4,6 @@ import { GrGoogle } from "react-icons/gr";
 import { RiHome2Fill, RiSearch2Fill } from "react-icons/ri";
 export default function NavigationBar() {
   const session = useSession()
-  console.log(session)
   return (
     <div className="z-50 w-full fixed mb-8 text-black bottom-0 lg:my-4">
       <div className=" flex gap-5 w-fit mx-auto items-center justify-center ">

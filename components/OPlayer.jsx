@@ -6,9 +6,8 @@ import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 export default function OPlayer(props) {
-  const { sources, animeId, episode, handleNextEpisode } = props;
+  const { sources, animeId, episode, handleNextEpisode, watchTime } = props;
   const watchTimeTimeoutRef = useRef();
-  console.log(episode.animeId)
   const playerRef = useRef();
   const poster = episode.image
   const isFullTitle = episode.title !== null && episode.title !== "full";
@@ -26,6 +25,8 @@ export default function OPlayer(props) {
 
 
 
+
+        slideToSeek: true,
         settings: ['loop',
           {
             name: 'Quality',
@@ -72,6 +73,7 @@ export default function OPlayer(props) {
   }, []); // Empty dependency array ensures this effect runs only once on initial render
 
   useEffect(() => {
+
     const handleTimeUpdate = () => {
       clearTimeout(watchTimeTimeoutRef.current); // Clear previous timeout (if any)
 
@@ -89,6 +91,7 @@ export default function OPlayer(props) {
 
     // Clean up the event listener and timeout on component unmount
     return () => {
+
       playerRef.current.off("timeupdate", handleTimeUpdate);
       clearTimeout(watchTimeTimeoutRef.current);
     };
@@ -101,10 +104,13 @@ export default function OPlayer(props) {
 
 
 
-
     playerRef.current.changeSource({ src: sources[sources.length - 1]?.url, poster, title });
-
-
+    if (watchTime > 10)
+    {
+      const durationInSeconds = playerRef.current.getDuration();
+      const seekTimeInSeconds = (watchTime / 100) * durationInSeconds;
+      playerRef.current.seek(seekTimeInSeconds);
+    }
   }, [sources, episode]);
 
   return (
