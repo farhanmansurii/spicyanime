@@ -26,7 +26,7 @@ export default function OPlayer(props) {
 
 
 
-        slideToSeek: true,
+        slideToSeek: 'always',
         settings: ['loop',
           {
             name: 'Quality',

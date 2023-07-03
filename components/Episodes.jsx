@@ -112,18 +112,10 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
 
   const foundAnime = takingAnimeId(animeId);
   if (!currentEpisode && episodes.length > 0)
-  {
-    if (ifExists(animeId))
-    {
-      console.log('exists');
-      setCurrentEpisode(foundAnime.episode);
-      setSelectedEpisode(foundAnime.episode.id);
-    } else
-    {
-      console.log('does not exist');
+  {  
       setCurrentEpisode(episodes[0]);
       setSelectedEpisode(episodes[0].id);
-    }
+
   }
 
 
@@ -180,6 +172,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
             handleNextEpisode={handleNextEpisode}
             key={episode.id}
             animeId={animeId}
+            watchtime={foundAnime ? foundAnime.episode.watchTime : 0}
           />
         </div>
       ) : (

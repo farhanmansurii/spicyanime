@@ -29,13 +29,12 @@ function Anime() {
     }
     else
     {
-      console.log("user exists")
+      console.error("user exists")
     }
   }
   useEffect(() => {
     login()
     onSnapshot(doc(db, 'users', `${session?.data?.user?.email}`), (doc) => {
-      console.log(doc.data()?.savedAnime,);
       dispatch(syncAnime(doc.data()?.savedAnime));
     })
 
@@ -55,7 +54,7 @@ function Anime() {
   );
   const dispatch = useDispatch();
   const recentlyWatched = useSelector((state) => state.recentlyWatched.items);
-  console.log(recentlyWatched)
+
   const savedAnime = useSelector((state) => state.recentlyWatched.savedAnime);
   useEffect(() => {
     const storedState = localStorage.getItem("tvShowsState");
