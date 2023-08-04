@@ -6,18 +6,34 @@ import Player from "@oplayer/core";
 import hls from "@oplayer/hls";
 import ui from "@oplayer/ui";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function OPlayer(props) {
-  const { sources, animeId, episode, handleNextEpisode, watchTime, recent } =
-    props;
+  const { sources, animeId, episode, handleNextEpisode, recent } = props;
   const watchTimeTimeoutRef = useRef();
   const playerRef = useRef();
   const poster = episode.image;
   const isFullTitle = episode.title !== null && episode.title !== "full";
   const title = isFullTitle ? "E" + episode.number + " " + episode.title : "";
   const dispatch = useDispatch();
+  const [initialWatchTimeFetched, setInitialWatchTimeFetched] = useState(false);
+  const [watchTime, setWatchTime] = useState();
+  const continueWatching = useSelector((state) => state.recentlyWatched.items);
+  function takingAnimeId(animeId) {
+    for (let i = 0; i < continueWatching.length; i++) {
+      if (continueWatching[i].animeId === animeId) {
+        return continueWatching[i];
+      }
+    }
+  }
 
+  useEffect(() => {
+    if (!initialWatchTimeFetched) {
+      const foundAnime = takingAnimeId(animeId);
+      setWatchTime(foundAnime.episode.watchTime);
+      setInitialWatchTimeFetched(true);
+    }
+  }, []);
   useEffect(() => {
     // Create the player only once using the initial values
     if (!playerRef.current) {
@@ -141,11 +157,33 @@ export default function OPlayer(props) {
       poster,
       title,
     });
-  }, [sources, episode, watchTime]);
+  }, [sources, episode]);
+  const handleSeekToTime = (percentage) => {
+    const totalTime = playerRef.current.duration;
+    const timeInSeconds = (percentage / 100) * totalTime;
+    playerRef.current.seek(timeInSeconds);
+  };
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   return (
     <>
       <div key={episode.id} className="w-full my-5">
+        {watchTime && playerRef.current && (
+          <button
+            className="w-fit px-2 py-2 bg-red-500 text-white"
+            onClick={() => {
+              handleSeekToTime(watchTime);
+              setWatchTime(null);
+            }}>
+            Skip to {formatTime((watchTime / 100) * playerRef.current.duration)}
+          </button>
+        )}
         {episode ? (
           <div className="justify-center flex">
             <div
