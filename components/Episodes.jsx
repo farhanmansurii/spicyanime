@@ -25,7 +25,6 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   const [episode, setEpisode] = useState(null);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(26);
-  const [initialTime, setinitialTime] = useState(0);
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
   const handleEpisodeClick = (epid) => {
@@ -176,7 +175,6 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
             key={episode.id}
             animeId={animeId}
             recent={foundAnime ? foundAnime : null}
-            watchtime={initialTime}
           />
         </div>
       ) : (
