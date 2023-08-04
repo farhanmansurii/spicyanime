@@ -25,28 +25,26 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   const [episode, setEpisode] = useState(null);
   const [start, setStart] = useState(1);
   const [end, setEnd] = useState(26);
+  const [initialTime, setinitialTime] = useState(0);
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [selectedEpisode, setSelectedEpisode] = useState(null);
   const handleEpisodeClick = (epid) => {
     setSelectedEpisode(epid);
   };
+  console.log(continueWatching);
   useEffect(() => {
     const fetchEpisode = async () => {
-      try
-      {
-
+      try {
         const response = await axios.get(
           `https://spicyapi.vercel.app/meta/anilist/watch/${selectedEpisode}`
         );
         setEpisode(response.data);
-      } catch (error)
-      {
+      } catch (error) {
         setEpisode(null);
       }
     };
 
-    if (selectedEpisode)
-    {
+    if (selectedEpisode) {
       fetchEpisode();
     }
   }, [selectedEpisode]);
@@ -57,12 +55,10 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   }, [animeId]);
 
   const getKey = (pageIndex, previousPageData) => {
-    if (pageIndex === 0)
-    {
+    if (pageIndex === 0) {
       return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime&fetchFiller=true`;
     }
-    if (!previousPageData.length)
-    {
+    if (!previousPageData.length) {
       return null;
     }
     return `https://spicyapi.vercel.app/meta/anilist/episodes/${animeId}?provider=gogoanime&fetchFiller=true`;
@@ -75,56 +71,65 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   if (error)
     return (
       <div className=" h-[200px] text-2xl  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        {error.message} 
+        {error.message}
       </div>
     );
   if (!data)
     return (
       <div className=" h-[200px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-        <Spinner color="#e63946" />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="36"
+          height="36"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#e63946"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide animate-spin lucide-loader-2 w-12 h-12">
+          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+        </svg>
       </div>
     );
 
-
-  const episodes = data.flatMap((page) => page).sort((a, b) => a.number - b.number);
-
+  const episodes = data
+    .flatMap((page) => page)
+    .sort((a, b) => a.number - b.number);
 
   function ifExists(animeId) {
-
-    for (let i = 0; i < continueWatching.length; i++)
-    {
-      if (continueWatching[i].animeId === animeId) return true
-      return false
-
+    for (let i = 0; i < continueWatching.length; i++) {
+      if (continueWatching[i].animeId === animeId) return true;
+      return false;
     }
   }
 
-
   function takingAnimeId(animeId) {
-    for (let i = 0; i < continueWatching.length; i++)
-    {
-      if (continueWatching[i].animeId === animeId)
-      {
+    for (let i = 0; i < continueWatching.length; i++) {
+      if (continueWatching[i].animeId === animeId) {
         return continueWatching[i];
       }
     }
   }
 
   const foundAnime = takingAnimeId(animeId);
-  if (!currentEpisode && episodes.length > 0)
-  {  
+
+  if (!currentEpisode && episodes.length > 0) {
+    if (ifExists(animeId)) {
+      console.log("exists");
+      setinitialTime(foundAnime.episode.watchTime);
+      setCurrentEpisode(foundAnime.episode);
+      setSelectedEpisode(foundAnime.episode.id);
+    } else {
+      console.log("does not exist");
       setCurrentEpisode(episodes[0]);
       setSelectedEpisode(episodes[0].id);
-
+    }
   }
-
-
-
 
   const visibleEpisodes = episodes.slice(start - 1, end);
   const options = [];
-  for (let i = 0; i < episodes.length; i += 26)
-  {
+  for (let i = 0; i < episodes.length; i += 26) {
     options.push(`${i + 1} - ${Math.min(i + 26, episodes.length)}`);
   }
 
@@ -147,8 +152,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
           e.episode.number !== currentEpisode?.number && (
             <div
               onClick={() => handleClickEpisode(e.episode)}
-              className=" border-black/50 text-black bg-[#e63946] w-fit px-3  py-2 rounded-xl flex"
-            >
+              className=" border-black/50 text-black bg-[#e63946] w-fit px-3  py-2 rounded-xl flex">
               Continue E{e.episode.number} {e.episode.title} ?
             </div>
           )
@@ -161,7 +165,6 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
             </span>{" "}
             {currentEpisode.title}
           </div>
-
         </div>
       )}
       {episode ? (
@@ -172,12 +175,25 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
             handleNextEpisode={handleNextEpisode}
             key={episode.id}
             animeId={animeId}
-            watchtime={foundAnime ? foundAnime.episode.watchTime : 0}
+            recent={foundAnime ? foundAnime : null}
+            watchtime={initialTime}
           />
         </div>
       ) : (
         <div className="h-[200px] w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-          <Spinner color="#e63946" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#e63946"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide animate-spin lucide-loader-2 w-12 h-12">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
         </div>
       )}
       {episodes.length >= 27 ? (
@@ -194,8 +210,7 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
               const [newStart, newEnd] = e.target.value.split(" - ");
               setStart(parseInt(newStart));
               setEnd(parseInt(newEnd));
-            }}
-          >
+            }}>
             {options.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -215,21 +230,24 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
 
       <div className="flex flex-col  overflow-x-scroll p-2 scrollbar-hide mx-auto ">
         <div className="flex gap-1 flex-nowrap ">
-        {visibleEpisodes.map((ep) => (
-          (type === "TV" || type === "ONA") && (
-
-            <div
-              key={ep.id}
-              onClick={() => handleClickEpisode(ep)}
-              className={`rounded-lg ${selectedEpisode && (ep.id === selectedEpisode ? 'border-2 border-red-500' : ' border-transparent')
-                }`}
-            >
-              <EpisodeCard episode={ep} title={ep.title} />
-            </div>
-
-          )
-        ))}
-        </div></div>
+          {visibleEpisodes.map(
+            (ep) =>
+              (type === "TV" || type === "ONA") && (
+                <div
+                  key={ep.id}
+                  onClick={() => handleClickEpisode(ep)}
+                  className={`rounded-lg ${
+                    selectedEpisode &&
+                    (ep.id === selectedEpisode
+                      ? "border-2 border-red-500"
+                      : " border-transparent")
+                  }`}>
+                  <EpisodeCard episode={ep} title={ep.title} />
+                </div>
+              )
+          )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -67,7 +67,8 @@ function Anime() {
     <div>
       {popularIsLoading || actionIsLoading ? (
         <div className=" h-[100vh]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center">
-          <Spinner color="#e63946" />
+         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#e63946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide animate-spin lucide-loader-2 w-12 h-12"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+          
         </div>
       ) : (
         <div className="flex flex-col   pb-24 lg:pb-10">
