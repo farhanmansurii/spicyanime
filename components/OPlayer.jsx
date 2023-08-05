@@ -180,12 +180,12 @@ export default function OPlayer(props) {
           <>
             {watchTime > 0 && watchTime && (
               <button
-                className="w-fit px-2 py-2 bg-red-500 text-white"
+                className="w-fit rounded-full text-sm px-2 py-2 bg-red-500 text-white"
                 onClick={() => {
                   handleSeekToTime(watchTime);
                   setWatchTime(null);
                 }}>
-                Skip to{" "}
+                begin where u left off ?
               </button>
             )}
             <div className="justify-center flex">
