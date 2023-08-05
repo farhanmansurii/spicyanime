@@ -30,7 +30,8 @@ export default function OPlayer(props) {
   useEffect(() => {
     if (!initialWatchTimeFetched) {
       const foundAnime = takingAnimeId(animeId);
-      if (foundAnime && foundAnime.episode)
+      console.log(foundAnime);
+      if (foundAnime && foundAnime?.episode.id === episode.id)
         setWatchTime(foundAnime?.episode?.watchTime);
       setInitialWatchTimeFetched(true);
     }
@@ -177,7 +178,7 @@ export default function OPlayer(props) {
       <div key={episode.id} className="w-full my-5">
         {episode ? (
           <>
-            {playerRef && playerRef?.current?.duration && watchTime && (
+            {watchTime > 0 && watchTime && (
               <button
                 className="w-fit px-2 py-2 bg-red-500 text-white"
                 onClick={() => {
@@ -185,7 +186,6 @@ export default function OPlayer(props) {
                   setWatchTime(null);
                 }}>
                 Skip to{" "}
-                {formatTime((watchTime / 100) * playerRef?.current.duration)}
               </button>
             )}
             <div className="justify-center flex">
