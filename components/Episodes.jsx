@@ -30,7 +30,6 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   const handleEpisodeClick = (epid) => {
     setSelectedEpisode(epid);
   };
-  console.log(continueWatching);
   useEffect(() => {
     const fetchEpisode = async () => {
       try {
@@ -116,7 +115,6 @@ export default function Episodes({ animeId, type, totalEpisodes }) {
   if (!currentEpisode && episodes.length > 0) {
     if (ifExists(animeId)) {
       console.log("exists");
-      setinitialTime(foundAnime.episode.watchTime);
       setCurrentEpisode(foundAnime.episode);
       setSelectedEpisode(foundAnime.episode.id);
     } else {

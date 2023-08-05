@@ -30,7 +30,8 @@ export default function OPlayer(props) {
   useEffect(() => {
     if (!initialWatchTimeFetched) {
       const foundAnime = takingAnimeId(animeId);
-      setWatchTime(foundAnime.episode.watchTime);
+      if (foundAnime && foundAnime.episode)
+        setWatchTime(foundAnime?.episode?.watchTime);
       setInitialWatchTimeFetched(true);
     }
   }, []);
@@ -174,23 +175,26 @@ export default function OPlayer(props) {
   return (
     <>
       <div key={episode.id} className="w-full my-5">
-        {watchTime && playerRef.current && (
-          <button
-            className="w-fit px-2 py-2 bg-red-500 text-white"
-            onClick={() => {
-              handleSeekToTime(watchTime);
-              setWatchTime(null);
-            }}>
-            Skip to {formatTime((watchTime / 100) * playerRef.current.duration)}
-          </button>
-        )}
         {episode ? (
-          <div className="justify-center flex">
-            <div
-              className="w-full h-full lg:w-[720px] aspect-video border-white/30"
-              id="oplayer"
-            />
-          </div>
+          <>
+            {playerRef && playerRef?.current?.duration && watchTime && (
+              <button
+                className="w-fit px-2 py-2 bg-red-500 text-white"
+                onClick={() => {
+                  handleSeekToTime(watchTime);
+                  setWatchTime(null);
+                }}>
+                Skip to{" "}
+                {formatTime((watchTime / 100) * playerRef?.current.duration)}
+              </button>
+            )}
+            <div className="justify-center flex">
+              <div
+                className="w-full h-full lg:w-[720px] aspect-video border-white/30"
+                id="oplayer"
+              />
+            </div>
+          </>
         ) : (
           <div className="w-full h-full lg:w-[720px] aspect-video border-white/30 flex items-center justify-center border mx-auto">
             Loading
